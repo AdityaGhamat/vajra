@@ -6,7 +6,7 @@ import { BookingForm } from "@/components/booking-form";
 export const metadata: Metadata = {
   title: "Book your first session",
   description:
-    "Meet a coach. Try a session. Explore the demo enquiry for FORM Strength Club. No booking request will be sent.",
+    "Meet a coach. Try a session. Explore the demo enquiry for VAJRA FITNESS. No booking request will be sent.",
 };
 export default function BookPage() {
   return (

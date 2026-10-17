@@ -43,7 +43,7 @@ export function MotionSystem() {
         } catch (error) {
           document.documentElement.dataset.motion = "fallback";
           if (process.env.NODE_ENV === "development")
-            console.error("FORM motion could not start", error);
+            console.error("VAJRA motion could not start", error);
         }
       });
     };

@@ -52,15 +52,11 @@ export function SectionLabel({
 }
 export function Wordmark() {
   return (
-    <Link className="brand" href="/" aria-label="FORM Strength Club home">
+    <Link className="brand" href="/" aria-label="VAJRA FITNESS home">
       <span className="wordmark">
-        FORM<span className="brand-slash">/</span>
+        VAJRA<span className="brand-slash">/</span>
       </span>
-      <span className="brand-descriptor">
-        STRENGTH
-        <br />
-        CLUB
-      </span>
+      <span className="brand-descriptor">FITNESS</span>
     </Link>
   );
 }

@@ -162,7 +162,7 @@ export function PageTransitions({ children }: { children: ReactNode }) {
         <div className="route-curtain-panel" />
         <div className="route-curtain-word">
           <span>
-            FORM<span className="route-curtain-slash">/</span>
+            VAJRA<span className="route-curtain-slash">/</span>
           </span>
           <span className="mono">PROGRESS IS A PRACTICE.</span>
         </div>

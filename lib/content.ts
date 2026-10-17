@@ -387,9 +387,9 @@ export const faqs = [
       "No. The sample memberships run month to month, with no joining fee or annual contract. Unused sessions do not roll over. Request cancellation before your next billing date. Production terms would be agreed with the club.",
   },
   {
-    question: "Where is FORM, and how do I contact you?",
+    question: "Where is VAJRA FITNESS, and how do I contact you?",
     answer:
-      "FORM is a fictional club set in the Baner neighbourhood of Pune. There is no operating address or phone number. Map, email, and WhatsApp integrations are intentionally inactive until a real gym’s verified details are supplied.",
+      "VAJRA FITNESS is a fictional club set in the Baner neighbourhood of Pune. There is no operating address or phone number. Map, email, and WhatsApp integrations are intentionally inactive until a real gym’s verified details are supplied.",
   },
 ];
 

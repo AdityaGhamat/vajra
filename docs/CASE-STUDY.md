@@ -1,4 +1,4 @@
-# FORM / Progress is a practice
+# VAJRA / Progress is a practice
 
 ## Problem
 

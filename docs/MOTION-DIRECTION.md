@@ -1,4 +1,4 @@
-# FORM / the moving edition
+# VAJRA / the moving edition
 
 ## Reference study
 
@@ -12,7 +12,7 @@ Observed principles:
 - About uses an offset photograph sequence whose relative positions and scales change during scrolling, followed by a large contrasting type composition.
 - Large blocks, open space, and changes between light/dark imagery provide the rhythm. Motion is part of that hierarchy rather than decoration applied identically to every item.
 
-FORM interprets these principles through its own training-journal identity. No reference composition, brand asset, image, or source code was copied. The site retains readable programme comparisons, schedule filters, prices, and the first-session journey.
+VAJRA interprets these principles through its own training-journal identity. No reference composition, brand asset, image, or source code was copied. The site retains readable programme comparisons, schedule filters, prices, and the first-session journey.
 
 ## Photograph treatment
 

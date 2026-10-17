@@ -67,7 +67,7 @@ Two font families, three loaded weights; approximately 56 KB total before transf
 
 ## Original graphics
 
-The FORM wordmark is an original typographic treatment. The slash, arrows, rules, plus signs, session numbers, progress bars, and round “one session at a time” annotation are native SVG/CSS/HTML treatments made for this project. No reference-site graphics were used.
+The VAJRA wordmark is an original typographic treatment. The slash, arrows, rules, plus signs, session numbers, progress bars, and round “one session at a time” annotation are native SVG/CSS/HTML treatments made for this project. No reference-site graphics were used.
 
 - `public/icon.svg`: original F/slash favicon.
 - `public/social.png`: original 1200×630 social sharing fallback, generated from the SVG source embedded in `scripts/prepare-assets.mjs`.

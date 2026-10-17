@@ -1,4 +1,4 @@
-# FORM / Strength Club
+# VAJRA FITNESS
 
 A complete Next.js App Router + TypeScript portfolio concept for a fictional neighbourhood gym in Baner, Pune. The visual idea is an independent sports magazine crossed with a training journal: warm chalk, ink, condensed type, documentary concept photography, numbered entries, and vermilion progress marks.
 
@@ -34,7 +34,7 @@ The build produces a static export in `out/`, including the homepage, `/book/`, 
 
 ## Demo boundaries
 
-FORM is fictional. Programme structures, named coach personas, prices, policies, hours, and sessions are illustrative. No awards, reviews, capacity claims, qualifications, or results are fabricated. Every person and facility in the photographs is AI-generated. No map, phone, email, or WhatsApp link represents an operating business.
+VAJRA FITNESS is fictional. Programme structures, named coach personas, prices, policies, hours, and sessions are illustrative. No awards, reviews, capacity claims, qualifications, or results are fabricated. Every person and facility in the photographs is AI-generated. No map, phone, email, or WhatsApp link represents an operating business.
 
 The booking demo has **no network submission, personal-data storage, analytics, or CRM**. It accepts sample entries only in React memory and clears them on completion. A selected training/session ID can be carried in the URL; contact details never enter the URL. Closing or reloading the page discards entries. A real enquiry would still require the club to confirm a time.
 

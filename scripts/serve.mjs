@@ -45,5 +45,5 @@ createServer(async (request, response) => {
     response.end(request.method === "HEAD" ? undefined : body);
   }
 }).listen(port, "127.0.0.1", () =>
-  console.log(`FORM / Static preview: http://127.0.0.1:${port}`),
+  console.log(`VAJRA / Static preview: http://127.0.0.1:${port}`),
 );

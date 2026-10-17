@@ -6,7 +6,7 @@ export default function NotFound() {
       <h1>
         LET’S GET
         <br />
-        BACK TO FORM.
+        BACK TO VAJRA.
       </h1>
       <p>This page isn’t part of the training plan.</p>
       <Link className="button" href="/">

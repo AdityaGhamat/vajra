@@ -26,17 +26,15 @@ const sans = localFont({
   display: "swap",
 });
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    "https://form-strength-club-pune.lightmap1025.chatgpt.site",
-  ),
+  metadataBase: new URL("https://vajra-fitness-pune.lightmap1025.chatgpt.site"),
   title: {
-    default: "FORM / Strength Club — Progress is a practice.",
-    template: "%s / FORM Strength Club",
+    default: "VAJRA FITNESS — Progress is a practice.",
+    template: "%s / VAJRA FITNESS",
   },
   description:
-    "Strength training, thoughtful coaching, and a place to keep showing up. Explore FORM, a fictional neighbourhood strength club in Pune.",
+    "Strength training, thoughtful coaching, and a place to keep showing up. Explore VAJRA FITNESS, a fictional neighbourhood strength club in Pune.",
   openGraph: {
-    title: "FORM / Strength Club",
+    title: "VAJRA FITNESS",
     description:
       "Progress is a practice. A fictional neighbourhood strength club in Pune.",
     images: [
@@ -44,7 +42,7 @@ export const metadata: Metadata = {
         url: "/social.png",
         width: 1200,
         height: 630,
-        alt: "FORM Strength Club. Progress is a practice. Portfolio concept.",
+        alt: "VAJRA FITNESS. Progress is a practice. Portfolio concept.",
       },
     ],
     type: "website",
@@ -96,7 +94,8 @@ export default function RootLayout({
             </div>
             <div className="footer-bottom">
               <p>
-                FORM is a fictional portfolio concept. Images are AI-generated.
+                VAJRA FITNESS is a fictional portfolio concept. Images are
+                AI-generated.
                 <br />
                 No operating gym, real staff, or live bookings.
               </p>
