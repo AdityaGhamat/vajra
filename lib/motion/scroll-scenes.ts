@@ -92,4 +92,44 @@ export function mountScrollScenes(desktop: boolean) {
         },
       );
     });
+
+  // Interstitial words: one keyframed pass each way, no competing tweens.
+  document.querySelectorAll<HTMLElement>(".interstitial").forEach((el) => {
+    const word = el.querySelector(".interstitial-word");
+    const sub = el.querySelector(".interstitial-sub");
+    if (word) {
+      gsap.set(word, { opacity: 0.04, scale: 0.92 });
+      gsap.to(word, {
+        keyframes: [
+          { opacity: 0.15, scale: 1 },
+          { opacity: 0.03, scale: 0.98 },
+        ],
+        ease: "none",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 85%",
+          end: "bottom 15%",
+          scrub: 0.6,
+        },
+      });
+    }
+    if (sub) {
+      gsap.fromTo(
+        sub,
+        { opacity: 0, y: 15 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 55%",
+            once: true,
+          },
+          clearProps: "transform,opacity",
+        },
+      );
+    }
+  });
 }

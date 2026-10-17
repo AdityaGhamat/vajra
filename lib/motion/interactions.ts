@@ -21,10 +21,10 @@ export function mountInteractions(context: gsap.Context) {
     animate(() => {
       gsap.fromTo(
         ".training-image img",
-        { opacity: 0.2, scale: 1.2 },
+        { opacity: 0.2, scale: 1.06 },
         {
           opacity: 1,
-          scale: 1.16,
+          scale: 1,
           duration: 0.85,
           ease: "power3.out",
           overwrite: "auto",

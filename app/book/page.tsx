@@ -41,7 +41,8 @@ export default function BookPage() {
           </div>
           <div className="booking-story-note mono">
             <span>NO EXPERIENCE NEEDED.</span>
-            <span>NO PRESSURE TO COMMIT.</span>
+            <span>BEGINNERS WELCOME.</span>
+            <span>A REQUEST, NOT A RESERVATION.</span>
           </div>
         </div>
         <div className="booking-form-wrap">

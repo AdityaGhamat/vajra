@@ -4,6 +4,9 @@ import { Arrow, BookLink, SectionLabel, Closing } from "@/components/ui";
 import { TrainingIndex } from "@/components/training-index";
 import { Timetable } from "@/components/timetable";
 import { Journal } from "@/components/journal";
+import { Interstitial } from "@/components/interstitial";
+import { SpaceGallery } from "@/components/space-gallery";
+import { ImageAction } from "@/components/image-action";
 import { memberships, coaches, faqs, club } from "@/lib/content";
 
 export default function Home() {
@@ -37,18 +40,14 @@ export default function Home() {
                 Explore training <Arrow diagonal />
               </Link>
             </div>
-            <div className="hero-fact mono">
-              <span className="tiny-bars" aria-hidden="true">
-                <i />
-                <i />
-                <i />
-                <i />
-              </span>{" "}
-              COACHED STRENGTH & CONDITIONING
-            </div>
           </div>
           <figure className="hero-photo">
-            <div className="photo-viewport">
+            <ImageAction
+              className="photo-viewport"
+              href="#begin"
+              label="Discover what your first session looks like"
+              cue="Your first session"
+            >
               <Image
                 src="/images/strength.webp"
                 alt="Concept photograph: a woman practises a kettlebell deadlift while a coach watches her technique."
@@ -57,33 +56,24 @@ export default function Home() {
                 fetchPriority="high"
                 sizes="(max-width: 760px) 100vw, 49vw"
               />
-            </div>
-            <div className="hero-photo-caption mono">
-              <span>THE WORK IS PERSONAL.</span>
-              <span>THE PRACTICE IS SHARED.</span>
-            </div>
-            <div className="hero-stamp" aria-hidden="true">
-              <span>ONE SESSION</span>
-              <svg viewBox="0 0 48 48" fill="none">
-                <path
-                  d="M9 24h29M24 10l14 14-14 14"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                />
-              </svg>
-              <span>AT A TIME.</span>
-            </div>
+            </ImageAction>
+            <figcaption className="hero-photo-caption mono">
+              THE WORK IS PERSONAL. THE PRACTICE IS SHARED.
+            </figcaption>
           </figure>
         </div>
-        <div className="hero-baseline mono">
-          <span>GOOD FORM.</span>
-          <span>STEADY PROGRESS.</span>
-          <span>YOUR OWN PACE.</span>
+        <div className="hero-proof mono">
+          <span>COACHED STRENGTH & CONDITIONING</span>
+          <span>03 TRAINING FORMATS</span>
+          <span>45–60 MIN SESSIONS</span>
+          <span>BEGINNERS WELCOME</span>
           <a href="#begin" aria-label="Discover your first session">
             SCROLL TO BEGIN ↓
           </a>
         </div>
       </section>
+
+      <Interstitial word="SHOW UP" subtitle="YOUR FIRST STEP" />
 
       <section id="begin" className="first-session section-pad section-space">
         <SectionLabel number="01">A PLACE TO START</SectionLabel>
@@ -208,6 +198,8 @@ export default function Home() {
         </div>
       </section>
 
+      <Interstitial word="REPEAT" subtitle="BUILD YOUR RHYTHM" />
+
       <section id="timetable" className="section-pad section-space">
         <SectionLabel number="03">MAKE IT A ROUTINE</SectionLabel>
         <div className="section-heading">
@@ -300,8 +292,11 @@ export default function Home() {
           </div>
         </div>
         <div className="membership-grid">
-          {memberships.map((m) => (
-            <article className="membership-option" key={m.name}>
+          {memberships.map((m, i) => (
+            <article
+              className={`membership-option ${i === 1 ? "membership-featured" : ""}`}
+              key={m.name}
+            >
               <span className="mono membership-number">
                 MEMBERSHIP / {m.number}
               </span>
@@ -321,6 +316,19 @@ export default function Home() {
                 ))}
               </ul>
               <p className="coaching-inclusion">{m.coaching}</p>
+              {i === 1 ? (
+                <BookLink />
+              ) : (
+                <Link
+                  href={i === 2 ? "/book/?training=personal" : "/book/"}
+                  className="text-link"
+                >
+                  {i === 2
+                    ? "Try personal coaching"
+                    : "Book your first session"}{" "}
+                  <Arrow diagonal />
+                </Link>
+              )}
             </article>
           ))}
         </div>
@@ -331,7 +339,6 @@ export default function Home() {
             Session credits reset monthly and don’t roll over. Sample prices
             include applicable taxes.
           </p>
-          <BookLink />
         </div>
       </section>
 
@@ -349,84 +356,7 @@ export default function Home() {
             Everything you need to do the work.
           </p>
         </div>
-        <div className="space-gallery">
-          <figure className="space-wide">
-            <div className="gallery-frame">
-              <div className="gallery-hover">
-                <Image
-                  src="/images/space.webp"
-                  alt="Generated concept: an open training floor with squat racks, rubber flooring, and tall windows."
-                  fill
-                  sizes="(max-width: 760px) 100vw, 80vw"
-                />
-              </div>
-            </div>
-            <figcaption>
-              <span className="mono">01 / THE TRAINING FLOOR</span>
-              <span>Room for the basics. Space to focus.</span>
-            </figcaption>
-          </figure>
-          <figure className="space-coaching">
-            <div className="gallery-frame">
-              <div className="gallery-hover">
-                <Image
-                  src="/images/coaching.webp"
-                  alt="Generated concept: a coach and trainee discuss training notes in the coaching area."
-                  fill
-                  sizes="(max-width: 760px) 100vw, 43vw"
-                />
-              </div>
-            </div>
-            <figcaption>
-              <span className="mono">02 / THE COACHING CORNER</span>
-              <span>A place to pause, ask, and plan.</span>
-            </figcaption>
-          </figure>
-          <figure className="space-equipment">
-            <div className="gallery-frame">
-              <div className="gallery-hover">
-                <Image
-                  src="/images/equipment.webp"
-                  alt="Generated concept: a hand loading a metal weight plate onto a barbell sleeve."
-                  fill
-                  sizes="(max-width: 760px) 100vw, 34vw"
-                />
-              </div>
-            </div>
-            <figcaption>
-              <span className="mono">03 / THE TOOLS</span>
-              <span>Simple equipment. Plenty of possibility.</span>
-            </figcaption>
-          </figure>
-          <figure className="space-changing">
-            <div className="gallery-frame">
-              <div className="gallery-hover">
-                <Image
-                  src="/images/changing.webp"
-                  alt="Generated concept: olive lockers, a bench, and a private changing cubicle in a quiet changing room."
-                  fill
-                  sizes="(max-width: 760px) 100vw, 45vw"
-                />
-              </div>
-            </div>
-            <figcaption>
-              <span className="mono">04 / THE EVERYDAY DETAILS</span>
-              <span>Changing space for the rest of your day.</span>
-            </figcaption>
-          </figure>
-          <div className="gallery-note">
-            <span className="mono red">THE SPACE, IN PRINCIPLE.</span>
-            <p>
-              Light. Order. A sense of belonging.
-              <br />A club should make it easier to begin.
-            </p>
-            <span className="mono muted">
-              GENERATED CONCEPT IMAGERY
-              <br />
-              NOT AN OPERATING FACILITY
-            </span>
-          </div>
-        </div>
+        <SpaceGallery />
       </section>
 
       <section id="visit" className="visit section-pad section-space">

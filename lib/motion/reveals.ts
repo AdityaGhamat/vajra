@@ -66,7 +66,7 @@ export function mountReveals(desktop: boolean) {
     0,
   );
   enter(
-    ".hero-description, .hero-actions, .hero-fact, .detail-line, .detail-description, .detail-hero .button, .detail-reassurance, .booking-story > p",
+    ".hero-description, .hero-actions, .detail-line, .detail-description, .detail-hero .button, .detail-reassurance, .booking-story > p",
     { y: 24, opacity: 0 },
     {
       y: 0,
@@ -89,20 +89,7 @@ export function mountReveals(desktop: boolean) {
     0.05,
   );
   enter(
-    ".hero-stamp",
-    { scale: 0.7, rotation: -38, opacity: 0 },
-    {
-      scale: 1,
-      rotation: -12,
-      opacity: 1,
-      duration: 0.8,
-      ease: "back.out(1.5)",
-      clearProps: "transform,opacity",
-    },
-    0.45,
-  );
-  enter(
-    ".hero-baseline > *",
+    ".hero-proof > *",
     { y: 10, opacity: 0 },
     {
       y: 0,
@@ -165,19 +152,8 @@ export function mountReveals(desktop: boolean) {
     }),
   );
 
-  select(".section-label").forEach((label: HTMLElement) => {
-    gsap.fromTo(
-      label,
-      { clipPath: "inset(0 95% 0 0)" },
-      {
-        clipPath: "inset(0 0% 0 0)",
-        duration: 1.1,
-        ease: "power3.inOut",
-        scrollTrigger: { trigger: label, start: "top 93%", once: true },
-        clearProps: "clipPath",
-      },
-    );
-  });
+  // Section labels draw their rule via --rule-progress in scroll-scenes;
+  // no second wipe here.
   select(
     ".section-heading > p, .section-heading > div, .packing-note, .first-small, .section-intro, .philosophy-copy > p, .practice-notation, .membership-terms, .gallery-note, .detail-overview > div, .detail-next > div:last-child, .closing-bottom",
   ).forEach((element: HTMLElement) => {
@@ -197,16 +173,16 @@ export function mountReveals(desktop: boolean) {
 
   // Images move inside their reserved frames. No section pins or extra scroll distance.
   select(
-    ".photo-viewport, .training-image, .philosophy-image, .coach-photo, .gallery-frame, .detail-photo, .booking-photo",
+    ".photo-viewport, .philosophy-image, .coach-photo, .gallery-frame, .detail-photo, .booking-photo",
   ).forEach((frame: HTMLElement) => {
     const image = frame.querySelector("img");
     if (!image) return;
     gsap.fromTo(
       image,
-      { scale: desktop ? 1.2 : 1.1, yPercent: desktop ? -6 : -3 },
+      { scale: 1.08, yPercent: desktop ? -3 : -2 },
       {
-        scale: desktop ? 1.16 : 1.1,
-        yPercent: desktop ? 6 : 3,
+        scale: 1.08,
+        yPercent: desktop ? 3 : 2,
         ease: "none",
         scrollTrigger: {
           trigger: frame,
@@ -249,17 +225,5 @@ export function mountReveals(desktop: boolean) {
         );
       },
     );
-    if (document.querySelector(".hero-stamp"))
-      gsap.to(".hero-stamp", {
-        rotation: 12,
-        y: -30,
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".hero",
-          start: "top top",
-          end: "bottom top",
-          scrub: 1,
-        },
-      });
   }
 }

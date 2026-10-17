@@ -4,7 +4,7 @@
   --surface-olive: #e3e4d9;
   --inverse-bg: #191b18;
   --inverse-text: #f1eee6;
-  --photo-filter: grayscale(1) contrast(1.15) brightness(0.94);
+  --photo-filter: saturate(0.72) contrast(1.06) brightness(0.97);
   --grain-opacity: 0.22;
 }
 html.lenis {
@@ -115,7 +115,7 @@ html[data-theme="dark"] {
   --surface-olive: #252c21;
   --inverse-bg: #0c0f0b;
   --inverse-text: #eeece3;
-  --photo-filter: grayscale(1) contrast(1.12) brightness(0.85);
+  --photo-filter: saturate(0.6) contrast(1.08) brightness(0.9);
   --grain-opacity: 0.18;
 }
 body,
@@ -133,14 +133,7 @@ body,
     color 0.4s ease,
     border-color 0.4s ease;
 }
-.training,
-.visit {
-  background: var(--surface-alt);
-}
-.membership,
-.detail-overview {
-  background: var(--surface-olive);
-}
+/* One chalk rhythm: only the dark interludes carry their own ground. */
 .philosophy,
 .closing,
 .detail-next {
@@ -227,9 +220,6 @@ body,
 .hero-photo::after {
   z-index: 2;
 }
-.hero-stamp {
-  z-index: 4;
-}
 .motion-line-mask {
   padding: 0;
   margin: 0;
@@ -238,6 +228,26 @@ body,
 /* A compact edition switch: the preference is applied before the first paint. */
 .site-header {
   gap: 22px;
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease,
+    border-color 0.4s ease,
+    transform 0.35s ease,
+    height 0.3s ease;
+}
+html[data-nav-hidden="true"] .site-header {
+  transform: translateY(-101%);
+}
+@media (min-width: 1001px) {
+  html[data-scrolled="true"] .site-header {
+    height: 72px;
+  }
+  html[data-scrolled="true"] .wordmark {
+    font-size: 38px;
+  }
+  html[data-scrolled="true"] .brand-slash {
+    font-size: 40px;
+  }
 }
 .desktop-nav {
   gap: 27px;
@@ -370,8 +380,14 @@ html[data-theme="dark"] .theme-moon {
 .training-row.selected::after {
   transform: scaleX(1);
 }
-.training-row:not(.selected):hover {
-  background: color-mix(in srgb, var(--chalk) 65%, transparent);
+.training-row:is(:hover, :focus-visible) {
+  background: var(--surface-alt);
+}
+.training-row.selected {
+  background: var(--surface-olive);
+}
+.training-row.selected:is(:hover, :focus-visible) {
+  background: var(--surface-olive);
 }
 .training-row-title {
   transition:
@@ -592,6 +608,22 @@ html[data-theme="dark"] .membership-terms p {
     line-height: 1.4;
   }
 }
+/* Interstitial motion hooks */
+.interstitial-word {
+  transition: none; /* GSAP controls this */
+}
+
+/* FAQ overlay transitions */
+.faq-overlay-content summary {
+  transition: color 0.25s;
+}
+.faq-overlay-content summary:hover {
+  color: var(--red-dark);
+}
+.faq-overlay-content details[open] {
+  border-top-color: var(--red-dark);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .button:hover .button-copy > span:first-child,
   .button:focus-visible .button-copy > span:first-child {
@@ -603,6 +635,10 @@ html[data-theme="dark"] .membership-terms p {
   .training-row:hover .training-row-title,
   .journal a[aria-current] .journal-tick {
     transform: none;
+  }
+  .faq-overlay,
+  .faq-overlay-inner {
+    animation: none !important;
   }
 }
 
@@ -658,6 +694,10 @@ html[data-motion-preference="reduce"]
   .button-copy
   > span:first-child {
   transform: none;
+}
+html[data-motion-preference="reduce"] .faq-overlay,
+html[data-motion-preference="reduce"] .faq-overlay-inner {
+  animation: none !important;
 }
 @media (max-width: 760px) {
   .footer-bottom > div {

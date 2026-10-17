@@ -35,18 +35,7 @@
 .membership-description {
   min-height: 3.2em;
 }
-.hero-photo-caption {
-  gap: 20px;
-  align-items: flex-end;
-}
-.hero-photo-caption > span {
-  max-width: 48%;
-}
-.hero-photo-caption > span:last-child {
-  text-align: right;
-}
-.hero-baseline {
-  flex-wrap: wrap;
+.hero-proof {
   row-gap: 12px;
 }
 .section-label > span:last-of-type {
@@ -78,6 +67,274 @@ html[data-theme="dark"] .session-book {
   transform: scale(1);
   transition: transform 0.45s ease;
 }
+
+/* Intentional image actions: an always-visible cue plus a local pointer label. */
+.image-action {
+  position: relative;
+  isolation: isolate;
+  user-select: none;
+}
+.photo-viewport.image-action {
+  position: absolute;
+}
+.image-action-target,
+.image-action-media {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+.image-action-target {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+}
+.image-action-media {
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.image-action:focus-within {
+  outline: 2px solid var(--red-dark);
+  outline-offset: 4px;
+}
+.image-action-target:focus-visible {
+  outline: 2px solid #f1eee6;
+  outline-offset: -6px;
+}
+.image-action-hint {
+  position: absolute;
+  z-index: 4;
+  top: 16px;
+  right: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 9px 12px;
+  background: #151813;
+  color: #f1eee6;
+  border: 1px solid #62685a;
+  font-size: var(--text-label);
+  transition: opacity 0.2s;
+}
+.image-cursor {
+  display: none;
+  position: absolute;
+  left: var(--cursor-x, 50%);
+  top: var(--cursor-y, 50%);
+  z-index: 6;
+  pointer-events: none;
+  white-space: nowrap;
+  gap: 14px;
+  align-items: center;
+  padding: 14px 18px;
+  background: #f1eee6;
+  color: #191b18;
+  border: 1px solid #191b18;
+  border-radius: 40px;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.9);
+  transition:
+    opacity 0.18s,
+    transform 0.25s;
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  html:not([data-motion-preference="reduce"]) .image-cursor {
+    display: inline-flex;
+  }
+  .image-action[data-cursor-active] .image-cursor {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  .image-action[data-cursor-active] .image-action-hint {
+    opacity: 0;
+  }
+  html:not([data-motion-preference="reduce"])
+    .image-action:hover
+    .image-action-media {
+    transform: scale(1.025);
+  }
+}
+.hero-photo-caption {
+  pointer-events: none;
+}
+.training-detail-jump {
+  display: none;
+}
+.training-help {
+  color: var(--muted);
+  font-size: var(--text-small);
+  margin-top: 12px;
+}
+.training-help a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.training-start {
+  padding-top: 15px;
+  border-top: 1px solid var(--rule);
+  margin-top: 18px !important;
+}
+.training-start .mono {
+  display: block;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.training-detail:focus-visible {
+  outline: 2px solid var(--red-dark);
+  outline-offset: 6px;
+}
+/* Focus and an open preference panel keep navigation available. */
+html[data-nav-hidden="true"] .site-header:focus-within,
+html[data-nav-hidden="true"] .site-header:has(.appearance-controls[open]) {
+  transform: none;
+}
+@media (min-width: 1001px) {
+  html[data-scrolled="true"] .appearance-panel {
+    top: 66px;
+  }
+}
+.membership-option {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.membership-option .coaching-inclusion {
+  width: 100%;
+  flex: 1;
+}
+.membership-option .button {
+  flex-shrink: 0;
+}
+.membership-option .text-link {
+  min-height: 54px;
+}
+
+/* Native modal supplies focus containment and blocks the page behind it. */
+.space-viewer {
+  width: min(1080px, calc(100vw - 40px));
+  max-height: calc(100dvh - 40px);
+  padding: 0 24px 20px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--chalk);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+}
+.space-viewer::backdrop {
+  background: rgba(8, 11, 7, 0.86);
+}
+.space-viewer[open] {
+  animation: viewer-enter 0.3s ease both;
+}
+.space-viewer-head,
+.space-viewer-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.space-viewer-head {
+  min-height: 68px;
+}
+.viewer-control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid var(--rule);
+  background: var(--chalk);
+  color: var(--ink);
+}
+.viewer-control:is(:hover, :focus-visible) {
+  background: var(--ink);
+  color: var(--chalk);
+}
+.space-viewer-image {
+  position: relative;
+  height: min(51dvh, 540px);
+  background: var(--inverse-bg);
+}
+.space-viewer-image img {
+  object-fit: contain;
+  filter: var(--photo-filter);
+}
+.space-viewer-copy {
+  padding: 22px 0 12px;
+}
+.space-viewer-copy h2 {
+  font-size: clamp(30px, 4vw, 48px);
+  text-transform: uppercase;
+}
+.space-viewer-copy p {
+  font-size: var(--text-body);
+  color: var(--muted);
+  margin-top: 12px;
+}
+.viewer-pagination {
+  display: flex;
+  gap: 8px;
+}
+.space-viewer-foot .text-link {
+  margin: 0;
+}
+.viewer-disclosure {
+  color: var(--muted);
+  margin-top: 16px;
+  font-size: var(--text-label);
+}
+@keyframes viewer-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+html[data-motion-preference="reduce"] .space-viewer {
+  animation: none;
+}
+html[data-motion-preference="reduce"] .image-action-media {
+  transition: none;
+}
+@media (max-width: 760px) {
+  .training-details-copy {
+    padding-left: var(--gutter);
+  }
+  .training-detail-jump {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 44px;
+    padding: 10px 14px;
+    background: var(--surface-olive);
+    color: var(--red-dark);
+    font-size: var(--text-small);
+    border-bottom: 1px solid var(--rule);
+  }
+  .space-viewer {
+    width: calc(100vw - 24px);
+    max-height: calc(100dvh - 24px);
+    padding: 0 16px 16px;
+  }
+  .space-viewer-image {
+    height: 32dvh;
+  }
+  .space-viewer-foot .text-link {
+    font-size: var(--text-small);
+    gap: 10px;
+  }
+  .image-action-hint {
+    top: 12px;
+    right: 12px;
+  }
+}
 @media (hover: hover) and (pointer: fine) {
   .gallery-frame:hover .gallery-hover {
     transform: scale(1.025);
@@ -103,19 +360,8 @@ html[data-motion-preference="reduce"] .training-row:hover .training-row-title {
 .training-row.selected .selection-mark {
   color: var(--red-dark);
 }
-.index-footnote p {
+.index-footnote {
   font-size: inherit;
-}
-.training-jump {
-  display: inline-flex;
-  align-items: center;
-  gap: 16px;
-  min-height: 44px;
-  margin-top: 8px;
-  border-bottom: 1px solid var(--rule);
-  font-size: var(--text-small);
-  color: var(--red-dark);
-  font-weight: 600;
 }
 
 /* A native disclosure groups both global preferences at every viewport. */
@@ -235,6 +481,15 @@ html[data-motion-preference="reduce"] .training-row:hover .training-row-title {
     gap: 16px;
     background: var(--chalk);
     border-top: 1px solid var(--rule);
+    transform: translateY(110%);
+    visibility: hidden;
+    transition:
+      transform 0.35s ease,
+      visibility 0.35s;
+  }
+  .mobile-book.visible {
+    transform: none;
+    visibility: visible;
   }
   .mobile-book > .mono {
     max-width: 140px;
@@ -255,6 +510,8 @@ html[data-motion-preference="reduce"] .training-row:hover .training-row-title {
   body {
     padding-bottom: 0;
   }
+  /* Reserve the bar's space permanently: toggling it with visibility
+     shifts the page height mid-scroll and reads as a jerk. */
   body:has(.mobile-book) {
     padding-bottom: calc(
       var(--booking-bar-height) + env(safe-area-inset-bottom)
@@ -283,10 +540,6 @@ html[data-motion-preference="reduce"] .training-row:hover .training-row-title {
   .hero-photo-caption {
     left: 12px;
     right: 12px;
-    gap: 12px;
-  }
-  .hero-photo-caption > span {
-    max-width: 47%;
   }
   .coach-info {
     display: block;

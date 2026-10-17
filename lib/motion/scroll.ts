@@ -27,6 +27,7 @@ export function mountScroll() {
   const sync = () => {
     const busy =
       document.querySelector(".mobile-menu") ||
+      document.querySelector(".space-viewer[open]") ||
       root.dataset.routeTransition === "covering" ||
       root.dataset.routeTransition === "covered";
     if (busy) lenis.stop();
@@ -55,6 +56,7 @@ export function mountScroll() {
     if (target) lenis.scrollTo(target, { duration: 0.85, lerp: 0 });
   };
   window.addEventListener("form:menu", sync);
+  window.addEventListener("form:viewer", sync);
   window.addEventListener("form:route-leave", sync);
   window.addEventListener("form:route-enter", sync);
   window.addEventListener("click", top);
@@ -62,6 +64,7 @@ export function mountScroll() {
   sync();
   return () => {
     window.removeEventListener("form:menu", sync);
+    window.removeEventListener("form:viewer", sync);
     window.removeEventListener("form:route-leave", sync);
     window.removeEventListener("form:route-enter", sync);
     window.removeEventListener("click", top);

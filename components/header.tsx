@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { TransitionLink as Link } from "@/components/page-transitions";
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
@@ -14,6 +15,7 @@ const links = [
 ];
 export function Header() {
   const [open, setOpen] = useState(false);
+  const [bookVisible, setBookVisible] = useState(false);
   const pathname = usePathname();
   const programme = trainings.find(
     (training) => pathname.replace(/\/$/, "") === `/training/${training.slug}`,
@@ -55,6 +57,65 @@ export function Header() {
     document.addEventListener("keydown", handle);
     return () => document.removeEventListener("keydown", handle);
   }, [open]);
+  useEffect(() => {
+    // One scroll owner: shrink and hide the masthead, reveal the booking bar
+    // only once the hero is behind and no booking action is already in view.
+    const root = document.documentElement;
+    const bookingRoute = pathname.startsWith("/book");
+    const bumper = new Set<Element>();
+    let frame = 0;
+    let lastY = window.scrollY;
+    const apply = () => {
+      frame = 0;
+      const y = window.scrollY;
+      const engaged =
+        open ||
+        !!document.querySelector(".appearance-controls[open]") ||
+        !!document.activeElement?.closest(".site-header");
+      root.dataset.scrolled = y > 24 ? "true" : "false";
+      if (y > lastY + 4 && y > 320 && !engaged && !bookingRoute)
+        root.dataset.navHidden = "true";
+      else if (y < lastY - 4 || y <= 320 || engaged || bookingRoute)
+        root.dataset.navHidden = "false";
+      lastY = y;
+      setBookVisible(
+        !bookingRoute &&
+          !open &&
+          bumper.size === 0 &&
+          y > window.innerHeight * 0.55,
+      );
+    };
+    const queue = () => {
+      if (!frame) frame = requestAnimationFrame(apply);
+    };
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) =>
+          entry.isIntersecting
+            ? bumper.add(entry.target)
+            : bumper.delete(entry.target),
+        );
+        queue();
+      },
+      { threshold: 0.05 },
+    );
+    document
+      .querySelectorAll(".closing, .detail-next, .footer")
+      .forEach((el) => observer.observe(el));
+    apply();
+    window.addEventListener("scroll", queue, { passive: true });
+    window.addEventListener("resize", queue);
+    document.addEventListener("focusin", queue);
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      window.removeEventListener("scroll", queue);
+      window.removeEventListener("resize", queue);
+      document.removeEventListener("focusin", queue);
+      delete root.dataset.scrolled;
+      delete root.dataset.navHidden;
+    };
+  }, [open, pathname]);
   return (
     <>
       <header className="site-header">
@@ -92,11 +153,21 @@ export function Header() {
               </Link>
             ))}
             <BookLink href={bookHref} />
+            <div className="mobile-menu-foot">
+              <span className="mobile-menu-thumb" aria-hidden="true">
+                <Image src="/images/strength.webp" alt="" fill sizes="120px" />
+              </span>
+              <span className="mono">
+                BANER, PUNE
+                <br />
+                PROGRESS IS A PRACTICE.
+              </span>
+            </div>
           </nav>
         )}
       </header>
       {!pathname.startsWith("/book") && (
-        <div className="mobile-book">
+        <div className={`mobile-book${bookVisible ? " visible" : ""}`}>
           <span className="mono">YOUR FIRST STEP</span>
           <BookLink href={bookHref} />
         </div>
