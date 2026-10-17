@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/page-transitions";
 import { Arrow, BookLink, SectionLabel, Closing } from "@/components/ui";
 import { TrainingIndex } from "@/components/training-index";
 import { Timetable } from "@/components/timetable";

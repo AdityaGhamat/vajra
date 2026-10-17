@@ -59,3 +59,23 @@ The `artifacts/moving-edition/` subdirectory adds the combined 30-case audit and
 Additional quiet-edition check: all five routes were reloaded at 360px with motion disabled. Each reported a 360px document, no Lenis class, and zero split-line wrappers. The programme-aware mobile booking bar was checked on personal training and preserved `training=personal`.
 
 Final polish checks: browser-native smooth scrolling is disabled while Lenis is active, avoiding competing scroll controllers. Returning home on the same route resets scroll immediately; anchor timing is bounded and uses CSS scroll padding once. Headline masks no longer add line spacing: the two-line desktop hero measured 266.109px with a 133.056px line height. All four secondary routes were rechecked at 360px after that correction with no overflow and no browser errors.
+
+## Scroll and route-transition regression — 17 October 2026
+
+Tested the optimized static export on a separate local server, with no Fast Refresh in that preview. The updated production build and its TypeScript step pass. The production browser console reported zero warnings/errors over the recorded checks.
+
+The 17-case local browser record in `artifacts/motion-revision/browser-regression.json` covers:
+
+- A same-page training anchor settling at 107.89px against 108px CSS scroll padding, with one scroll owner.
+- A visible, non-identity curtain transform during route exit, followed by unlocked arrival at scroll zero on all three programme pages.
+- Programme-aware navigation into booking, retaining `training=personal`, with native scrolling, no Lenis class, and browser scroll behavior `auto`.
+- Native wheel movement over the form, sample input retention, demo completion, and completion-heading focus.
+- Mobile navigation with five links, day/night switching, Escape closure, continued native booking scroll, and no horizontal overflow at 390px.
+- Mobile validation-summary focus, plus a cross-route `/#visit` arrival at 85.20px against 85px CSS padding.
+- Quiet mode reverting split wrappers to zero and destroying Lenis; normal booking navigation remains usable. Re-enabling full motion restores route transitions.
+- Actual scroll-linked changes in masked headline transforms and photo transforms, observed before scrolling and after wheel settling.
+- Browser Back cancelling/releasing the curtain and restoring an unlocked native booking route.
+- A focused desktop textarea remaining between the sticky header and the viewport bottom (top 465.66px, header bottom 95px, viewport 960px).
+- Tablet booking arrival at scroll zero, native engine, idle curtain, and equal 768px document/viewport width.
+
+Desktop (1280px and 1440px), mobile (390px), and tablet (768px) were exercised. Temporary viewport overrides were reset. Evidence screenshots include the route curtain, final homepage, and focused booking field. These checks are browser simulations; no physical mobile keyboard/device or screen reader was tested.

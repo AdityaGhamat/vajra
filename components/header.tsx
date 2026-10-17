@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/page-transitions";
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { BookLink, Wordmark } from "./ui";

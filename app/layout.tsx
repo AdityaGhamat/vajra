@@ -2,9 +2,10 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { Header } from "@/components/header";
 import { Wordmark } from "@/components/ui";
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/page-transitions";
 import { MotionSystem } from "@/components/motion-system";
 import { MotionToggle } from "@/components/motion-toggle";
+import { PageTransitions } from "@/components/page-transitions";
 import "./globals.css";
 import "lenis/dist/lenis.css";
 import "./experience.css";
@@ -74,36 +75,38 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <MotionSystem />
-        <a href="#main" className="skip-link">
-          Skip to content
-        </a>
-        <Header />
-        {children}
-        <footer className="footer section-pad">
-          <div className="footer-top">
-            <Wordmark />
-            <p>
-              A little stronger.
-              <br />A little more often.
-            </p>
-            <Link href="/#visit" className="text-link">
-              Visit & FAQs <span aria-hidden="true">↗</span>
-            </Link>
-          </div>
-          <div className="footer-bottom">
-            <p>
-              FORM is a fictional portfolio concept. Images are AI-generated.
-              <br />
-              No operating gym, real staff, or live bookings.
-            </p>
-            <div className="mono">
-              <span>PUNE, INDIA</span>
-              <span>PROGRESS IS A PRACTICE.</span>
-              <MotionToggle />
+        <PageTransitions>
+          <MotionSystem />
+          <a href="#main" className="skip-link">
+            Skip to content
+          </a>
+          <Header />
+          {children}
+          <footer className="footer section-pad">
+            <div className="footer-top">
+              <Wordmark />
+              <p>
+                A little stronger.
+                <br />A little more often.
+              </p>
+              <Link href="/#visit" className="text-link">
+                Visit & FAQs <span aria-hidden="true">↗</span>
+              </Link>
             </div>
-          </div>
-        </footer>
+            <div className="footer-bottom">
+              <p>
+                FORM is a fictional portfolio concept. Images are AI-generated.
+                <br />
+                No operating gym, real staff, or live bookings.
+              </p>
+              <div className="mono">
+                <span>PUNE, INDIA</span>
+                <span>PROGRESS IS A PRACTICE.</span>
+                <MotionToggle />
+              </div>
+            </div>
+          </footer>
+        </PageTransitions>
       </body>
     </html>
   );

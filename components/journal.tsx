@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { TransitionLink as Link } from "@/components/page-transitions";
 
 const entries = [
   { id: "begin", label: "Begin" },
@@ -49,7 +50,7 @@ export function Journal() {
       <nav aria-label="Training journal sections" className="journal">
         <span className="mono journal-caption">THE PRACTICE</span>
         {entries.map((entry, i) => (
-          <a
+          <Link
             href={`#${entry.id}`}
             key={entry.id}
             aria-label={`${String(i + 1).padStart(2, "0")} ${entry.label}`}
@@ -57,7 +58,7 @@ export function Journal() {
           >
             <span className="journal-tick" />
             <span className="journal-name mono">{entry.label}</span>
-          </a>
+          </Link>
         ))}
         <span className="mono journal-page">0{active + 1} / 06</span>
       </nav>

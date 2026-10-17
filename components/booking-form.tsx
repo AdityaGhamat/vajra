@@ -1,7 +1,13 @@
 "use client";
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/page-transitions";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type FormEvent,
+  type FocusEvent,
+} from "react";
 import { days, trainings, sessions, getTraining } from "@/lib/content";
 import {
   completeDemo,
@@ -37,7 +43,32 @@ export function BookingForm() {
   );
   const summary = useRef<HTMLDivElement>(null),
     complete = useRef<HTMLHeadingElement>(null);
+  const focusFrame = useRef(0);
+  useEffect(() => () => cancelAnimationFrame(focusFrame.current), []);
+  function keepFieldVisible(event: FocusEvent<HTMLFormElement>) {
+    const input = event.target;
+    const field = input.closest<HTMLElement>(".field");
+    if (!field) return;
+    cancelAnimationFrame(focusFrame.current);
+    focusFrame.current = requestAnimationFrame(() => {
+      if (document.activeElement !== input || !field.isConnected) return;
+      const bounds = field.getBoundingClientRect();
+      const header =
+        document.querySelector(".site-header")?.getBoundingClientRect()
+          .bottom ?? 90;
+      const viewport = window.visualViewport;
+      const bottom = viewport
+        ? viewport.offsetTop + viewport.height
+        : window.innerHeight;
+      if (bounds.top < header + 16 || bounds.bottom > bottom - 20)
+        field.scrollIntoView({ block: "center", behavior: "instant" });
+    });
+  }
   const currentSession = sessions.find((s) => s.id === value.preference);
+  const hasErrors = Object.values(errors).some(Boolean) || !!failure;
+  useEffect(() => {
+    window.dispatchEvent(new Event("form:booking"));
+  }, [status, hasErrors]);
   useEffect(() => {
     if (status === "complete") complete.current?.focus();
   }, [status]);
@@ -148,6 +179,7 @@ export function BookingForm() {
   return (
     <form
       onSubmit={submit}
+      onFocusCapture={keepFieldVisible}
       noValidate
       className="booking-form"
       aria-busy={status === "loading"}

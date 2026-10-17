@@ -61,3 +61,5 @@ The homepage and programme pages are Server Components. Navigation, the journal,
 See [integration notes](docs/INTEGRATIONS.md), [asset and licensing manifest](docs/ASSETS.md), [creative references and portfolio outline](docs/CASE-STUDY.md), [OFFFORUM study and motion map](docs/MOTION-DIRECTION.md), and [validation record](docs/VALIDATION.md).
 
 The delivered static export is appropriate for this demo. A real booking adapter should run on a server or external booking service; remove `output: 'export'` if adding a Next.js Route Handler. Never put CRM credentials in the browser bundle.
+
+Motion is separated into route transitions, scroll ownership, reveals, scroll scenes, and UI interactions under `lib/motion/`. Booking uses native scroll; landing/programme pages use Lenis for wheel input. See `docs/MOTION-DIRECTION.md` for lifecycle and accessibility details. Stop the dev server before changing dependencies, then restart it; do not leave a running Turbopack process watching a dependency reinstall.

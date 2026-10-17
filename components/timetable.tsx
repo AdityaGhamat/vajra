@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/page-transitions";
 import { useEffect, useState } from "react";
 import {
   days,

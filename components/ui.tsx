@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/page-transitions";
 import type { ReactNode } from "react";
 
 export function Arrow({ diagonal = false }: { diagonal?: boolean }) {

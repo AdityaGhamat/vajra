@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/page-transitions";
 import { useEffect, useState } from "react";
 import { trainings, bookingUrl } from "@/lib/content";
 import { Arrow } from "./ui";

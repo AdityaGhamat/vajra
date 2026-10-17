@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/page-transitions";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { trainings, bookingUrl } from "@/lib/content";

@@ -10,6 +10,98 @@
 html.lenis {
   scroll-behavior: auto;
 }
+html {
+  scrollbar-gutter: stable;
+}
+html:has(.booking-page),
+html[data-scroll-engine="native"] {
+  scroll-behavior: auto;
+}
+html[data-route-transition="covering"],
+html[data-route-transition="covered"] {
+  overflow: clip;
+}
+.booking-page :is(input, select, textarea, .form-error-summary) {
+  scroll-margin-block: 24px;
+}
+.page-scroll-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  height: 3px;
+  background: var(--vermilion);
+  transform: scaleX(0);
+  transform-origin: left;
+  z-index: 101;
+  pointer-events: none;
+}
+.section-label::after {
+  content: "";
+  display: block;
+  height: 1px;
+  flex: 1;
+  max-width: 180px;
+  background: currentColor;
+  opacity: 0.4;
+  transform: scaleX(var(--rule-progress, 1));
+  transform-origin: left;
+}
+/* A three-panel editorial cut between routes, independent of scroll and theme. */
+.route-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  visibility: hidden;
+  pointer-events: none;
+  overflow: hidden;
+  contain: strict;
+}
+html[data-route-transition="covering"] .route-curtain,
+html[data-route-transition="covered"] .route-curtain,
+html[data-route-transition="revealing"] .route-curtain {
+  pointer-events: auto;
+}
+.route-curtain-panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: calc(33.334% + 1px);
+  transform: translateY(101%);
+  background: #d84b32;
+}
+.route-curtain-panel:nth-child(1) {
+  left: 0;
+}
+.route-curtain-panel:nth-child(2) {
+  left: 33.333%;
+  background: #ce432d;
+}
+.route-curtain-panel:nth-child(3) {
+  left: 66.666%;
+  background: #c13e29;
+}
+.route-curtain-word {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #f1eee6;
+}
+.route-curtain-word > span:first-child {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(100px, 22vw, 300px);
+  letter-spacing: -0.055em;
+  line-height: 0.9;
+}
+.route-curtain-slash {
+  color: #191b18;
+}
+.route-curtain-word > .mono {
+  font-size: clamp(8px, 0.8vw, 12px);
+  letter-spacing: 0.16em;
+  margin-top: 22px;
+}
 html[data-theme="dark"] {
   color-scheme: dark;
   --chalk: #151813;

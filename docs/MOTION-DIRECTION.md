@@ -27,24 +27,24 @@ The aim is a coherent editorial finish with less glossy colour rendering. A filt
 
 ## Motion map
 
-| Part                | Treatment                                                                                  | Role                                                   |
-| ------------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------ |
-| Masthead/navigation | Underline feedback, rolling action labels, travelling arrows                               | Make affordances clear without moving the navigation   |
-| Hero                | Masked line entrance, staged supporting content, photograph reveal, settling journal stamp | Establish the identity and first action immediately    |
-| Section annotations | Rules and labels reveal from left to right                                                 | Connect the page to a training log                     |
-| First-session story | Steps enter as a staggered group                                                           | Make the sequence easy to follow                       |
-| Training index      | Selected rule draws; photograph and details change with a short reveal                     | Explain the current choice                             |
-| Philosophy          | Line masks, paragraph entrances, image movement within its frame                           | Change pace without adding a scroll trap               |
-| Timetable           | Group entrance and short re-entry after filtering, including empty state                   | Keep state changes understandable                      |
-| Coach studies       | Staggered profiles and photographs moving inside stable frames                             | Keep people and their approach together                |
-| Membership          | Aligned columns reveal in sequence; prices remain ordinary text                            | Preserve comparison and reading                        |
-| The space           | Offset figure movement on desktop, contained image parallax at every size                  | Add depth to the photographic sequence                 |
-| Visit/FAQs          | Practical information enters in groups; native disclosures get short answer feedback       | Preserve immediate access to answers                   |
-| Closing/footer      | Large line entrance, action-label feedback, grouped footer details                         | End with the same clear first-session action           |
-| Programme pages     | Route-specific type/image entrances, session outline, related links                        | Carry the visual system beyond the homepage            |
-| Booking             | Grouped field entrances, error/completion feedback, existing focus management              | Confirm changes without implying a real booking        |
-| Mobile menu         | Short masked panel and staggered link entrance                                             | Keep navigation understandable on touch screens        |
-| Theme               | A circular reveal from the edition switch where supported; ordinary theme change otherwise | Make day/night feel like two editions of the same club |
+| Part                | Treatment                                                                                        | Role                                                   |
+| ------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------ |
+| Masthead/navigation | Underline feedback, rolling action labels, travelling arrows                                     | Make affordances clear without moving the navigation   |
+| Hero                | Masked line entrance, staged supporting content, photograph reveal, settling journal stamp       | Establish the identity and first action immediately    |
+| Section annotations | Rules and labels reveal from left to right                                                       | Connect the page to a training log                     |
+| First-session story | Steps enter as a staggered group                                                                 | Make the sequence easy to follow                       |
+| Training index      | Selected rule draws; photograph and details change with a short reveal                           | Explain the current choice                             |
+| Philosophy          | Line masks, paragraph entrances, image movement within its frame                                 | Change pace without adding a scroll trap               |
+| Timetable           | Group entrance and short re-entry after filtering, including empty state                         | Keep state changes understandable                      |
+| Coach studies       | Staggered profiles and photographs moving inside stable frames                                   | Keep people and their approach together                |
+| Membership          | Aligned columns reveal in sequence; prices remain ordinary text                                  | Preserve comparison and reading                        |
+| The space           | Offset figure movement on desktop, contained image parallax at every size                        | Add depth to the photographic sequence                 |
+| Visit/FAQs          | Practical information enters in groups; native disclosures get short answer feedback             | Preserve immediate access to answers                   |
+| Closing/footer      | Large line entrance, action-label feedback, grouped footer details                               | End with the same clear first-session action           |
+| Programme pages     | Route-specific type/image entrances, session outline, related links                              | Carry the visual system beyond the homepage            |
+| Booking             | Individual field reveals, native scrolling, error/completion feedback, guarded focus positioning | Confirm changes without implying a real booking        |
+| Mobile menu         | Short masked panel and staggered link entrance                                                   | Keep navigation understandable on touch screens        |
+| Theme               | A circular reveal from the edition switch where supported; ordinary theme change otherwise       | Make day/night feel like two editions of the same club |
 
 Typical reveals last 0.45–1.2 seconds. The complete route entrance settles in roughly 1.4 seconds, but it is not a loader and never gates use of the page. Scroll-linked imagery has modest travel inside reserved dimensions. There are no pinned sections, forced horizontal segments, continuous marquees, or fake loading screens.
 
@@ -52,8 +52,8 @@ Typical reveals last 0.45–1.2 seconds. The complete route entrance settles in 
 
 - `components/motion-system.tsx` dynamically imports `lib/motion.ts` after the first rendered frame. HTML, typography, imagery, navigation, and form controls do not depend on that import to render.
 - GSAP **3.15.0**, ScrollTrigger, and SplitText provide the animation timelines. Only lines are split, not every character. Accessible heading labels preserve spaces across manual line breaks. Responsive splitting follows font/width changes.
-- Lenis **1.3.27** smooths wheel scrolling and shares GSAP's ticker. Touch and keyboard scrolling remain native. The menu stops/resumes the wheel controller. Textareas, selects, and the menu are excluded from smoothing.
-- Each route owns a matchMedia context, ScrollTriggers, observers, event handlers, and Lenis instance. Cleanup removes them on navigation, breakpoint change, or motion-preference change.
+- Lenis **1.3.27** smooths wheel scrolling on editorial routes and shares GSAP’s ticker. Booking uses native scrolling throughout. Touch and keyboard scrolling remain native everywhere. Next owns anchor URL/history changes; a single explicit event gives Lenis ownership of same-page anchor movement. Native browser anchor movement and Next scroll restoration do not run concurrently with that animation. The menu and route curtain pause the wheel controller.
+- Each route owns a matchMedia context, ScrollTriggers, event handlers, and its selected scroll engine. Cleanup removes them on navigation, breakpoint change, or motion-preference change. Explicit menu, schedule, programme, and booking events replace the body-wide MutationObserver. Layout refresh requests are coalesced into one frame.
 - Native view transitions provide the theme reveal where available. Reduced motion and unsupported browsers use the normal, fully functional change.
 - Day/night tokens cover content surfaces, utility labels, selected states, errors, controls, and inverse sections. A small pre-paint script applies the saved or system theme before hydration.
 - Only `form-theme` and `form-motion` preference values use local storage. Booking entries remain in page memory and are not transmitted or persisted.
@@ -69,3 +69,22 @@ The production motion chunk is approximately **54 KB gzip** as a local build art
 ## Libraries and licenses
 
 GSAP uses its published [standard license](https://gsap.com/standard-license/). Lenis is MIT licensed. Versions are pinned by `package-lock.json`. The existing font licenses and generated-photo manifest remain in ASSETS.md. The new `public/images/print-grain.svg` is an original small procedural texture, not a third-party photograph.
+
+## Route transitions and scroll revision
+
+The original implementation had entrance animation but no coordinated route exit/arrival. Routes now use a persistent three-panel vermilion curtain: a 0.51-second staggered cover, a real Next client navigation, then a 0.76-second staggered uncover. There is no artificial minimum loading wait. In the static production build, link prefetching remains provided by Next. Modifier/new-tab actions and same-page links retain their normal meaning. Browser Back/Forward cancels any active curtain and retains router scroll restoration. A five-second watchdog releases a failed or interrupted curtain. Quiet/system-reduced preferences bypass it.
+
+Headlines below the hero are linked to scroll progress through masked lines. Rows reveal at their own viewport landmarks instead of firing all at once when a large parent first enters. Photographs have a broader contained parallax range, with a separate offset sequence in the space gallery. The hero has opposing text/image movement, section rules draw with scroll, the philosophy copy brightens as it enters, and the closing type gently expands. Form fields retain a visible starting opacity and reveal individually; focusing a field immediately clears its animation and only repositions it if it would be obscured by the header or viewport.
+
+Code responsibilities are separate:
+
+- `components/page-transitions.tsx`: Next navigation, lifecycle, cancellation, history, and focus.
+- `lib/motion/route-transition.ts`: curtain timelines only.
+- `lib/motion/scroll.ts`: scroll ownership and Lenis lifecycle; native booking exception.
+- `lib/motion/reveals.ts`: typography, image, and content entrances.
+- `lib/motion/scroll-scenes.ts`: continuous scroll-linked compositions.
+- `lib/motion/interactions.ts`: explicit UI feedback and coalesced layout refresh.
+- `lib/motion/runtime.ts`: shared GSAP plugins.
+- `lib/motion.ts`: route-scoped composition and cleanup.
+
+The theme view transition remains independent of the route curtain. No dependency installation was needed for this revision.
