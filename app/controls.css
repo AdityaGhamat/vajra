@@ -1,0 +1,311 @@
+/* Shared reading scale, controls, and responsive navigation contracts. */
+.training-row-description,
+.first-steps p,
+.training-details-copy p,
+.philosophy-copy p,
+.coach-info > div > p:not(.coach-role),
+.membership-description,
+.membership-option li,
+.visit-intro,
+.hours > div,
+.contact-note p,
+.faq details p,
+.detail-description,
+.session-outline p,
+.demo-banner p,
+.completion-note p {
+  font-size: var(--text-body);
+}
+.coaching-inclusion,
+.membership-terms p,
+.field-hint,
+.privacy-note,
+.footer-bottom p,
+.index-footnote,
+.detail-reassurance,
+.submit-footnote,
+.preview-note {
+  font-size: var(--text-small);
+}
+.field input:not([type="radio"]),
+.field select,
+.field textarea {
+  font-size: 16px;
+}
+.membership-description {
+  min-height: 3.2em;
+}
+.hero-photo-caption {
+  gap: 20px;
+  align-items: flex-end;
+}
+.hero-photo-caption > span {
+  max-width: 48%;
+}
+.hero-photo-caption > span:last-child {
+  text-align: right;
+}
+.hero-baseline {
+  flex-wrap: wrap;
+  row-gap: 12px;
+}
+.section-label > span:last-of-type {
+  min-width: 0;
+}
+.section-label::after {
+  min-width: 20px;
+}
+
+/* Divider tokens apply to every card, including its first sibling. */
+.membership-grid,
+.membership-option,
+.membership-option + .membership-option,
+.coaching-inclusion,
+.session-book {
+  border-color: var(--rule);
+}
+html[data-theme="dark"] .membership-option,
+html[data-theme="dark"] .membership-option + .membership-option,
+html[data-theme="dark"] .coaching-inclusion,
+html[data-theme="dark"] .session-book {
+  border-color: var(--rule);
+}
+
+/* Hover and scroll animation each own a different transform layer. */
+.gallery-hover {
+  position: absolute;
+  inset: 0;
+  transform: scale(1);
+  transition: transform 0.45s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .gallery-frame:hover .gallery-hover {
+    transform: scale(1.025);
+  }
+}
+html[data-motion-preference="reduce"] .gallery-frame:hover .gallery-hover,
+html[data-motion-preference="reduce"] .training-row:hover .training-row-title {
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .gallery-frame:hover .gallery-hover {
+    transform: none;
+  }
+}
+
+/* Selection gets a check/chevron; arrows continue to identify navigation. */
+.training-row .selection-mark {
+  width: 24px;
+  height: 24px;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+.training-row.selected .selection-mark {
+  color: var(--red-dark);
+}
+.index-footnote p {
+  font-size: inherit;
+}
+.training-jump {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 44px;
+  margin-top: 8px;
+  border-bottom: 1px solid var(--rule);
+  font-size: var(--text-small);
+  color: var(--red-dark);
+  font-weight: 600;
+}
+
+/* A native disclosure groups both global preferences at every viewport. */
+.appearance-controls {
+  position: relative;
+  flex-shrink: 0;
+}
+.appearance-controls > summary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 11px;
+  list-style: none;
+  border: 1px solid var(--rule);
+  cursor: pointer;
+}
+.appearance-controls > summary::-webkit-details-marker {
+  display: none;
+}
+.appearance-controls > summary svg {
+  width: 19px;
+  height: 19px;
+}
+.appearance-controls[open] > summary,
+.appearance-controls > summary:hover {
+  background: var(--surface-olive);
+}
+.appearance-panel {
+  position: absolute;
+  z-index: 50;
+  top: calc((var(--header-height) + 44px) / 2 + 8px);
+  right: 0;
+  width: 288px;
+  padding: 20px;
+  background: var(--chalk);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  box-shadow: 0 12px 32px rgb(0 0 0 / 12%);
+}
+.appearance-panel > .mono {
+  color: var(--red-dark);
+  margin-bottom: 12px;
+}
+.appearance-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 0;
+}
+.appearance-row + .appearance-row {
+  border-top: 1px solid var(--rule);
+}
+.appearance-row > span {
+  font-size: var(--text-body);
+}
+.appearance-panel .theme-toggle {
+  width: auto;
+  min-width: 92px;
+  padding: 0 10px;
+  margin: 0;
+}
+.appearance-panel .theme-label {
+  display: inline;
+  font-size: var(--text-label);
+}
+.appearance-panel .motion-toggle {
+  min-height: 44px;
+  min-width: 92px;
+  padding: 0 8px;
+  justify-content: center;
+  border: 1px solid var(--rule);
+  font-size: var(--text-label);
+  color: var(--ink);
+}
+.appearance-note {
+  font-size: var(--text-small);
+  color: var(--muted);
+  margin-top: 10px;
+}
+
+.site-header {
+  height: var(--header-height);
+}
+@media (max-width: 1150px) {
+  .appearance-controls > summary > span {
+    display: none;
+  }
+}
+@media (max-width: 1000px) {
+  :root {
+    --header-height: 80px;
+  }
+  .site-header {
+    height: var(--header-height);
+  }
+  .appearance-controls {
+    margin-left: auto;
+  }
+  .mobile-menu {
+    top: var(--header-height);
+  }
+  .mobile-book {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 39;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: calc(var(--booking-bar-height) + env(safe-area-inset-bottom));
+    padding: 10px var(--gutter) calc(10px + env(safe-area-inset-bottom));
+    gap: 16px;
+    background: var(--chalk);
+    border-top: 1px solid var(--rule);
+  }
+  .mobile-book > .mono {
+    max-width: 140px;
+    font-size: var(--text-label);
+  }
+  .mobile-book .button {
+    min-height: 44px;
+    font-size: var(--text-small);
+    gap: 20px;
+    flex: 1;
+    max-width: 300px;
+    padding: 11px 14px;
+  }
+  .mobile-book .arrow {
+    width: 18px;
+    height: 18px;
+  }
+  body {
+    padding-bottom: 0;
+  }
+  body:has(.mobile-book) {
+    padding-bottom: calc(
+      var(--booking-bar-height) + env(safe-area-inset-bottom)
+    );
+  }
+}
+@media (max-width: 760px) {
+  :root {
+    --header-height: 73px;
+  }
+  .site-header {
+    height: var(--header-height);
+  }
+  .appearance-panel {
+    position: fixed;
+    top: calc(var(--header-height) + 8px);
+    right: 16px;
+    max-width: calc(100vw - 32px);
+  }
+  .mobile-book > .mono {
+    max-width: 60px;
+  }
+  .mobile-book .button {
+    max-width: 270px;
+  }
+  .hero-photo-caption {
+    left: 12px;
+    right: 12px;
+    gap: 12px;
+  }
+  .hero-photo-caption > span {
+    max-width: 47%;
+  }
+  .coach-info {
+    display: block;
+  }
+  .membership-description {
+    min-height: 0;
+  }
+  .coach-info > div:last-child {
+    margin-top: 20px;
+  }
+  .footer-bottom > div {
+    gap: 12px 20px;
+  }
+  .training-row {
+    grid-template-columns: 21px minmax(0, 1fr) 24px;
+  }
+}
+@media (max-width: 380px) {
+  .brand-descriptor {
+    display: none;
+  }
+}

@@ -2,15 +2,6 @@ import { gsap } from "./runtime";
 
 /** Scroll-linked compositions, separate from entrances and form interactions. */
 export function mountScrollScenes(desktop: boolean) {
-  gsap.fromTo(
-    ".page-scroll-progress",
-    { scaleX: 0 },
-    {
-      scaleX: 1,
-      ease: "none",
-      scrollTrigger: { start: 0, end: "max", scrub: true },
-    },
-  );
   document.querySelectorAll<HTMLElement>(".section-label").forEach((label) => {
     gsap.fromTo(
       label,

@@ -3,7 +3,7 @@ import { TransitionLink as Link } from "@/components/page-transitions";
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { BookLink, Wordmark } from "./ui";
-import { ThemeToggle } from "./theme-toggle";
+import { AppearanceControls } from "./appearance-controls";
 import { trainings, bookingUrl } from "@/lib/content";
 
 const links = [
@@ -66,7 +66,7 @@ export function Header() {
             </Link>
           ))}
         </nav>
-        <ThemeToggle />
+        <AppearanceControls onOpen={() => setOpen(false)} />
         <BookLink className="header-book" href={bookHref} />
         <button
           ref={toggle}

@@ -74,7 +74,7 @@ GSAP uses its published [standard license](https://gsap.com/standard-license/). 
 
 The original implementation had entrance animation but no coordinated route exit/arrival. Routes now use a persistent three-panel vermilion curtain: a 0.51-second staggered cover, a real Next client navigation, then a 0.76-second staggered uncover. There is no artificial minimum loading wait. In the static production build, link prefetching remains provided by Next. Modifier/new-tab actions and same-page links retain their normal meaning. Browser Back/Forward cancels any active curtain and retains router scroll restoration. A five-second watchdog releases a failed or interrupted curtain. Quiet/system-reduced preferences bypass it.
 
-Headlines below the hero are linked to scroll progress through masked lines. Rows reveal at their own viewport landmarks instead of firing all at once when a large parent first enters. Photographs have a broader contained parallax range, with a separate offset sequence in the space gallery. The hero has opposing text/image movement, section rules draw with scroll, the philosophy copy brightens as it enters, and the closing type gently expands. Form fields retain a visible starting opacity and reveal individually; focusing a field immediately clears its animation and only repositions it if it would be obscured by the header or viewport.
+Headlines below the hero play a one-time masked entrance when they reach the viewport. They complete while scrolling is stopped and remain readable when scrolling back. Rows reveal at their own viewport landmarks instead of firing all at once when a large parent first enters. Photographs have a broader contained parallax range, with a separate offset sequence in the space gallery. The hero has opposing text/image movement, section rules draw with scroll, the philosophy copy brightens as it enters, and the closing type gently expands. Form fields retain a visible starting opacity and reveal individually; focusing a field immediately clears its animation and only repositions it if it would be obscured by the header or viewport.
 
 Code responsibilities are separate:
 
@@ -88,3 +88,14 @@ Code responsibilities are separate:
 - `lib/motion.ts`: route-scoped composition and cleanup.
 
 The theme view transition remains independent of the route curtain. No dependency installation was needed for this revision.
+
+
+## UI consistency correction
+
+The shared reading scale now has an 11px label minimum, 12px supporting notes, and 14px explanatory copy. Photo captions wrap within their own columns. Membership descriptions reserve the same two-line space on multi-column layouts so prices remain aligned.
+
+Navigation uses a single 1000px breakpoint for the header booking action and fixed booking bar. Header heights and anchor gaps are tokens. Bottom space is reserved only when a fixed booking bar is present; booking itself has no reserved bar padding.
+
+The header Appearance disclosure groups day/night and animation preferences on every viewport. Escape and outside pointer interaction close it, navigation closes it, and opening mobile navigation and Appearance is mutually exclusive. The footer remains an additional motion shortcut; both motion controls synchronize via the same event.
+
+A single passive scroll-progress component serves every route and both motion modes. The journal owns only chapter markers. Photo hover uses an outer wrapper while GSAP owns the image transform, and quiet/system-reduced preferences suppress hover movement. Selection rows use a chevron/check and an explicit details jump; navigation links retain arrows. Shared divider tokens cover every membership sibling and session action in both themes.

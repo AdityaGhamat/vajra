@@ -31,9 +31,8 @@ export function mountReveals(desktop: boolean) {
               : {
                   scrollTrigger: {
                     trigger: heading,
-                    start: "top 92%",
-                    end: "top 40%",
-                    scrub: 0.65,
+                    start: "top 94%",
+                    once: true,
                   },
                 }),
             clearProps: "transform",

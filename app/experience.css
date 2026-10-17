@@ -98,7 +98,7 @@ html[data-route-transition="revealing"] .route-curtain {
   color: #191b18;
 }
 .route-curtain-word > .mono {
-  font-size: clamp(8px, 0.8vw, 12px);
+  font-size: clamp(11px, 0.8vw, 12px);
   letter-spacing: 0.16em;
   margin-top: 22px;
 }
@@ -261,7 +261,7 @@ body,
   border-color: var(--ink);
 }
 .theme-label {
-  font-size: 7px;
+  font-size: var(--text-label);
   letter-spacing: 0.05em;
 }
 .theme-symbol {
@@ -533,10 +533,7 @@ html[data-theme="dark"] .membership-terms p {
     background: none;
     border: 0;
     min-height: 44px;
-    font-size: 10px;
-  }
-  .reading-progress {
-    top: 79px;
+    font-size: var(--text-label);
   }
   .mobile-menu {
     position: fixed;
@@ -585,14 +582,11 @@ html[data-theme="dark"] .membership-terms p {
   .mobile-menu {
     top: 73px;
   }
-  .reading-progress {
-    top: 72px;
-  }
   .menu-toggle {
-    font-size: 9px;
+    font-size: var(--text-label);
   }
   .hero-photo-caption {
-    font-size: 6px;
+    font-size: var(--text-label);
   }
   .button-copy {
     line-height: 1.4;
@@ -621,7 +615,7 @@ html[data-theme="dark"] .membership-terms p {
   background: none;
   color: var(--muted);
   border: 0;
-  font-size: 8px;
+  font-size: var(--text-label);
   cursor: pointer;
   white-space: nowrap;
 }
@@ -671,7 +665,7 @@ html[data-motion-preference="reduce"]
   }
   .motion-toggle {
     min-height: 44px;
-    font-size: 7px;
+    font-size: var(--text-label);
   }
 }
 

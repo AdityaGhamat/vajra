@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { TransitionLink as Link } from "@/components/page-transitions";
 
 const entries = [
@@ -12,16 +12,10 @@ const entries = [
 ];
 export function Journal() {
   const [active, setActive] = useState(0);
-  const progress = useRef<HTMLDivElement>(null);
   useEffect(() => {
     let frame = 0;
     const update = () => {
       frame = 0;
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      progress.current?.style.setProperty(
-        "--progress",
-        String(max > 0 ? window.scrollY / max : 0),
-      );
       let current = 0;
       entries.forEach((entry, i) => {
         const el = document.getElementById(entry.id);
@@ -44,9 +38,6 @@ export function Journal() {
   }, []);
   return (
     <>
-      <div className="reading-progress" ref={progress} aria-hidden="true">
-        <span />
-      </div>
       <nav aria-label="Training journal sections" className="journal">
         <span className="mono journal-caption">THE PRACTICE</span>
         {entries.map((entry, i) => (

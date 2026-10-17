@@ -35,12 +35,27 @@ export function TrainingIndex() {
                 {i === 2 ? "ONE TO ONE" : "SMALL GROUP"}
               </span>
             </span>
-            <Arrow diagonal />
+            <svg
+              className="selection-mark"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d={selected === i ? "M5 12l4 4L19 6" : "M6 9l6 6 6-6"}
+                stroke="currentColor"
+                strokeWidth="1.5"
+              />
+            </svg>
           </button>
         ))}
-        <p className="index-footnote">
-          Different starting points. The same thoughtful coaching.
-        </p>
+        <div className="index-footnote">
+          <p>Different starting points. The same thoughtful coaching.</p>
+          <Link href="#training-detail" className="training-jump">
+            View {training.shortTitle.toLowerCase()} details{" "}
+            <span aria-hidden="true">↓</span>
+          </Link>
+        </div>
       </div>
       <div
         id="training-detail"

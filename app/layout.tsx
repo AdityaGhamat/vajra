@@ -9,6 +9,7 @@ import { PageTransitions } from "@/components/page-transitions";
 import "./globals.css";
 import "lenis/dist/lenis.css";
 import "./experience.css";
+import "./controls.css";
 
 const display = localFont({
   src: "../public/fonts/barlow-condensed-latin-700-normal.woff2",

@@ -12,6 +12,7 @@ import {
   type ReactNode,
 } from "react";
 import type { createRouteTransition } from "@/lib/motion/route-transition";
+import { ScrollProgress } from "./scroll-progress";
 
 type Driver = ReturnType<typeof createRouteTransition>;
 const Navigation = createContext<(href: string, replace?: boolean) => boolean>(
@@ -166,7 +167,7 @@ export function PageTransitions({ children }: { children: ReactNode }) {
           <span className="mono">PROGRESS IS A PRACTICE.</span>
         </div>
       </div>
-      <div className="page-scroll-progress" aria-hidden="true" />
+      <ScrollProgress />
     </Navigation.Provider>
   );
 }

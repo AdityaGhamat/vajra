@@ -79,3 +79,18 @@ The 17-case local browser record in `artifacts/motion-revision/browser-regressio
 - Tablet booking arrival at scroll zero, native engine, idle curtain, and equal 768px document/viewport width.
 
 Desktop (1280px and 1440px), mobile (390px), and tablet (768px) were exercised. Temporary viewport overrides were reset. Evidence screenshots include the route curtain, final homepage, and focused booking field. These checks are browser simulations; no physical mobile keyboard/device or screen reader was tested.
+
+
+## Nine UI consistency fixes — 17 October 2026
+
+The UI audit findings were addressed and checked against the production static export. All five routes were inspected at 1440, 950, 768, 390, and 360px in light and dark themes (50 layout cases): document width matched viewport width; practical labels measured at least 11px; each page had one progress indicator and no old journal progress bar; booking had zero reserved bottom-bar padding. All night-theme membership separators used the same token.
+
+Additional breakpoint checks at 1001, 1000, and 760px confirmed uninterrupted booking-action availability and header-derived scroll offsets. A stopped mobile first-session heading measured y=584.41–693.60 above the fixed bar at y=768, with all three line transforms cleared. The line animation no longer depends on further scrolling to become readable.
+
+Full mode applied photo hover scale to the outer wrapper while GSAP retained the image transform. Quiet mode removed both hover movement and scroll parallax; both motion switches reported false, and the single progress indicator continued updating. The header Appearance panel fit the mobile viewport. Theme and motion were exposed together, and Escape restored focus to the disclosure.
+
+Training selection showed the selected check icon, no navigation arrow on the choices, and an explicit programme-specific details jump. The personal-training jump settled at 86.19px against 86px CSS padding. Booking retained the programme context, native scrolling, 16px inputs, validation-summary focus, and demo-completion focus. A focused mobile textarea remained between the 73px header and 844px viewport bottom. No request was sent.
+
+The raised text scale initially moved the middle membership price at 768px. Reserving two lines for descriptions corrected that regression: all three description heights measured 44.80px and the prices aligned. Existing desktop membership alignment remained intact.
+
+Evidence and raw measurements are in the ignored `artifacts/consistency-fixes/` directory. Browser simulation does not replace physical-device, screen-reader, or field-performance validation.

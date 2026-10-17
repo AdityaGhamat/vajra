@@ -16,7 +16,11 @@ export function MotionToggle() {
     };
     sync();
     media.addEventListener("change", sync);
-    return () => media.removeEventListener("change", sync);
+    window.addEventListener("form:motion", sync);
+    return () => {
+      media.removeEventListener("change", sync);
+      window.removeEventListener("form:motion", sync);
+    };
   }, []);
   function toggle() {
     const next = enabled ? "reduce" : "full";

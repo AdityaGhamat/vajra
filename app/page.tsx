@@ -352,12 +352,14 @@ export default function Home() {
         <div className="space-gallery">
           <figure className="space-wide">
             <div className="gallery-frame">
-              <Image
-                src="/images/space.webp"
-                alt="Generated concept: an open training floor with squat racks, rubber flooring, and tall windows."
-                fill
-                sizes="(max-width: 760px) 100vw, 80vw"
-              />
+              <div className="gallery-hover">
+                <Image
+                  src="/images/space.webp"
+                  alt="Generated concept: an open training floor with squat racks, rubber flooring, and tall windows."
+                  fill
+                  sizes="(max-width: 760px) 100vw, 80vw"
+                />
+              </div>
             </div>
             <figcaption>
               <span className="mono">01 / THE TRAINING FLOOR</span>
@@ -366,12 +368,14 @@ export default function Home() {
           </figure>
           <figure className="space-coaching">
             <div className="gallery-frame">
-              <Image
-                src="/images/coaching.webp"
-                alt="Generated concept: a coach and trainee discuss training notes in the coaching area."
-                fill
-                sizes="(max-width: 760px) 100vw, 43vw"
-              />
+              <div className="gallery-hover">
+                <Image
+                  src="/images/coaching.webp"
+                  alt="Generated concept: a coach and trainee discuss training notes in the coaching area."
+                  fill
+                  sizes="(max-width: 760px) 100vw, 43vw"
+                />
+              </div>
             </div>
             <figcaption>
               <span className="mono">02 / THE COACHING CORNER</span>
@@ -380,12 +384,14 @@ export default function Home() {
           </figure>
           <figure className="space-equipment">
             <div className="gallery-frame">
-              <Image
-                src="/images/equipment.webp"
-                alt="Generated concept: a hand loading a metal weight plate onto a barbell sleeve."
-                fill
-                sizes="(max-width: 760px) 100vw, 34vw"
-              />
+              <div className="gallery-hover">
+                <Image
+                  src="/images/equipment.webp"
+                  alt="Generated concept: a hand loading a metal weight plate onto a barbell sleeve."
+                  fill
+                  sizes="(max-width: 760px) 100vw, 34vw"
+                />
+              </div>
             </div>
             <figcaption>
               <span className="mono">03 / THE TOOLS</span>
@@ -394,12 +400,14 @@ export default function Home() {
           </figure>
           <figure className="space-changing">
             <div className="gallery-frame">
-              <Image
-                src="/images/changing.webp"
-                alt="Generated concept: olive lockers, a bench, and a private changing cubicle in a quiet changing room."
-                fill
-                sizes="(max-width: 760px) 100vw, 45vw"
-              />
+              <div className="gallery-hover">
+                <Image
+                  src="/images/changing.webp"
+                  alt="Generated concept: olive lockers, a bench, and a private changing cubicle in a quiet changing room."
+                  fill
+                  sizes="(max-width: 760px) 100vw, 45vw"
+                />
+              </div>
             </div>
             <figcaption>
               <span className="mono">04 / THE EVERYDAY DETAILS</span>
