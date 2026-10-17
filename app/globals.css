@@ -1632,18 +1632,8 @@ fieldset {
   border-top: 1px solid var(--ink);
   color: var(--muted);
 }
-@media (min-width: 761px) {
-  .booking-story {
-    position: sticky;
-    top: calc(var(--header-height) + 28px);
-    align-self: start;
-  }
-}
-.booking-form .demo-banner {
-  position: sticky;
-  top: calc(var(--header-height) + 12px);
-  z-index: 5;
-}
+/* Both columns stay in normal flow: a pinned notice covers form labels,
+   and the editorial column is taller than many desktop viewports. */
 .booking-form-wrap {
   max-width: 560px;
 }
