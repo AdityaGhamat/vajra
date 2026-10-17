@@ -1,13 +1,16 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { trainings, bookingUrl } from "@/lib/content";
-import { Arrow, BookLink } from "./ui";
+import { Arrow } from "./ui";
 
 export function TrainingIndex() {
   const [selected, setSelected] = useState(0);
   const training = trainings[selected];
+  useEffect(() => {
+    window.dispatchEvent(new Event("form:training"));
+  }, [selected]);
   return (
     <div className="training-index">
       <div className="training-rows">

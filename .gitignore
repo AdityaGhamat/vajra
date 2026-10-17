@@ -6,3 +6,4 @@ out/
 .env*
 .openai/local*
 artifacts/
+.openai

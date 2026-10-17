@@ -24,7 +24,12 @@ export function BookLink({
 }) {
   return (
     <Link href={href} className={`button ${className}`}>
-      {children}
+      <span className="button-copy">
+        <span>{children}</span>
+        <span className="button-copy-echo" aria-hidden="true">
+          {children}
+        </span>
+      </span>
       <Arrow />
     </Link>
   );

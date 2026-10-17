@@ -3,6 +3,8 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { BookLink, Wordmark } from "./ui";
+import { ThemeToggle } from "./theme-toggle";
+import { trainings, bookingUrl } from "@/lib/content";
 
 const links = [
   ["Training", "/#training"],
@@ -13,11 +15,18 @@ const links = [
 export function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const programme = trainings.find(
+    (training) => pathname.replace(/\/$/, "") === `/training/${training.slug}`,
+  );
+  const bookHref = bookingUrl(programme?.id);
   const toggle = useRef<HTMLButtonElement>(null);
   const menu = useRef<HTMLElement>(null);
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
+  useEffect(() => {
+    window.dispatchEvent(new Event("form:menu"));
+  }, [open]);
   useEffect(() => {
     if (!open) return;
     const handle = (event: KeyboardEvent) => {
@@ -57,7 +66,8 @@ export function Header() {
             </Link>
           ))}
         </nav>
-        <BookLink className="header-book" />
+        <ThemeToggle />
+        <BookLink className="header-book" href={bookHref} />
         <button
           ref={toggle}
           className="menu-toggle mono"
@@ -72,6 +82,7 @@ export function Header() {
             ref={menu}
             id="mobile-menu"
             className="mobile-menu"
+            data-lenis-prevent
             aria-label="Mobile navigation"
           >
             {links.map(([name, href], i) => (
@@ -80,14 +91,14 @@ export function Header() {
                 {name}
               </Link>
             ))}
-            <BookLink />
+            <BookLink href={bookHref} />
           </nav>
         )}
       </header>
       {!pathname.startsWith("/book") && (
         <div className="mobile-book">
           <span className="mono">YOUR FIRST STEP</span>
-          <BookLink />
+          <BookLink href={bookHref} />
         </div>
       )}
     </>

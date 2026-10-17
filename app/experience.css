@@ -1,0 +1,613 @@
+/* FORM / day and night editions. The original page remains the static fallback. */
+:root {
+  --surface-alt: #e8e6dc;
+  --surface-olive: #e3e4d9;
+  --inverse-bg: #191b18;
+  --inverse-text: #f1eee6;
+  --photo-filter: grayscale(1) contrast(1.15) brightness(0.94);
+  --grain-opacity: 0.22;
+}
+html.lenis {
+  scroll-behavior: auto;
+}
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --chalk: #151813;
+  --ink: #eeece3;
+  --vermilion: #e77559;
+  --red-dark: #f18c72;
+  --olive: #a4ad92;
+  --muted: #b4baaa;
+  --rule: #424a3b;
+  --surface-alt: #1d221b;
+  --surface-olive: #252c21;
+  --inverse-bg: #0c0f0b;
+  --inverse-text: #eeece3;
+  --photo-filter: grayscale(1) contrast(1.12) brightness(0.85);
+  --grain-opacity: 0.18;
+}
+body,
+.site-header,
+.mobile-menu,
+.mobile-book,
+.training,
+.membership,
+.visit,
+.detail-overview,
+.footer,
+.theme-toggle {
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease,
+    border-color 0.4s ease;
+}
+.training,
+.visit {
+  background: var(--surface-alt);
+}
+.membership,
+.detail-overview {
+  background: var(--surface-olive);
+}
+.philosophy,
+.closing,
+.detail-next {
+  background: var(--inverse-bg);
+  color: var(--inverse-text);
+}
+.philosophy .chalk-text {
+  color: #bcbfae;
+}
+.closing .button:hover,
+.detail-next .button:hover {
+  background: var(--inverse-text);
+  color: var(--inverse-bg);
+}
+.closing a:focus-visible,
+.detail-next a:focus-visible {
+  outline-color: var(--inverse-text);
+}
+.hero h1,
+.hero-description,
+.training-image img {
+  animation: none;
+}
+
+/* A printed photographic edition: one restrained monochrome grade, not six presets. */
+.photo-viewport {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  isolation: isolate;
+}
+:is(
+  .training-image,
+  .philosophy-image,
+  .coach-photo,
+  .gallery-frame,
+  .detail-photo,
+  .booking-photo
+) {
+  overflow: hidden;
+  isolation: isolate;
+}
+:is(
+    .photo-viewport,
+    .training-image,
+    .philosophy-image,
+    .coach-photo,
+    .gallery-frame,
+    .detail-photo,
+    .booking-photo
+  )
+  img {
+  filter: var(--photo-filter);
+  transition: filter 0.5s ease;
+  transform-origin: center;
+}
+:is(
+  .photo-viewport,
+  .training-image,
+  .philosophy-image,
+  .coach-photo,
+  .gallery-frame,
+  .detail-photo,
+  .booking-photo
+)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: url("/images/print-grain.svg") repeat;
+  background-size: 160px 160px;
+  opacity: var(--grain-opacity);
+  mix-blend-mode: soft-light;
+}
+.photo-note {
+  z-index: 4;
+  color: #f1eee6;
+}
+.hero-photo-caption {
+  z-index: 3;
+  color: #f1eee6;
+}
+.hero-photo::after {
+  z-index: 2;
+}
+.hero-stamp {
+  z-index: 4;
+}
+.motion-line-mask {
+  padding: 0;
+  margin: 0;
+}
+
+/* A compact edition switch: the preference is applied before the first paint. */
+.site-header {
+  gap: 22px;
+}
+.desktop-nav {
+  gap: 27px;
+}
+.theme-toggle {
+  display: inline-flex;
+  min-width: 67px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 0 9px;
+  background: transparent;
+  border: 1px solid var(--rule);
+  color: var(--ink);
+  flex-shrink: 0;
+}
+.theme-toggle:hover {
+  background: var(--ink);
+  color: var(--chalk);
+  border-color: var(--ink);
+}
+.theme-label {
+  font-size: 7px;
+  letter-spacing: 0.05em;
+}
+.theme-symbol {
+  position: relative;
+  width: 19px;
+  height: 19px;
+  display: block;
+}
+.theme-symbol svg {
+  width: 19px;
+  height: 19px;
+  transition:
+    transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1),
+    opacity 0.3s;
+}
+.theme-moon {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 1.4px solid currentColor;
+  left: 2px;
+  top: 2px;
+  opacity: 0;
+  transform: rotate(-50deg) scale(0.5);
+  transition:
+    transform 0.55s cubic-bezier(0.2, 0.7, 0.2, 1),
+    opacity 0.3s;
+}
+.theme-moon::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  left: 4px;
+  top: -4px;
+  background: var(--chalk);
+  transition: background-color 0.35s;
+}
+html[data-theme="dark"] .theme-symbol svg {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.5);
+}
+html[data-theme="dark"] .theme-moon {
+  opacity: 1;
+  transform: rotate(-25deg) scale(1);
+}
+.theme-toggle:hover .theme-symbol svg {
+  transform: rotate(90deg);
+}
+.theme-toggle:hover .theme-moon::after {
+  background: var(--ink);
+}
+.header-book {
+  gap: 20px;
+}
+
+/* Repetition in the controls: labels roll, arrows travel, selected lines draw. */
+.button-copy {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  line-height: 1.5;
+}
+.button-copy > span {
+  display: block;
+  transition: transform 0.4s cubic-bezier(0.22, 0.7, 0.22, 1);
+}
+.button-copy-echo {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translateY(130%);
+}
+.button:hover .button-copy > span:first-child,
+.button:focus-visible .button-copy > span:first-child {
+  transform: translateY(-130%);
+}
+.button:hover .button-copy-echo,
+.button:focus-visible .button-copy-echo {
+  transform: translateY(0);
+}
+.button .arrow {
+  transition: transform 0.4s cubic-bezier(0.22, 0.7, 0.22, 1);
+}
+.button:hover .arrow,
+.button:focus-visible .arrow {
+  transform: translateX(4px);
+}
+.training-row {
+  position: relative;
+}
+.training-row::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--vermilion);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.65s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.training-row.selected::after {
+  transform: scaleX(1);
+}
+.training-row:not(.selected):hover {
+  background: color-mix(in srgb, var(--chalk) 65%, transparent);
+}
+.training-row-title {
+  transition:
+    color 0.25s,
+    transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.training-row:hover .training-row-title {
+  transform: translateX(5px);
+}
+.day-selector button {
+  transition:
+    background-color 0.25s,
+    color 0.25s,
+    border-color 0.25s;
+}
+.schedule-row {
+  transition: background-color 0.3s;
+}
+.schedule-row:hover {
+  background: color-mix(in srgb, var(--surface-olive) 45%, transparent);
+}
+.session-book .arrow,
+.other-training .arrow {
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.session-book:hover .arrow {
+  transform: translateX(5px);
+}
+.other-training a:hover .arrow {
+  transform: translate(3px, -3px) rotate(-45deg);
+}
+.faq summary {
+  transition: color 0.25s;
+}
+.faq summary:hover {
+  color: var(--red-dark);
+}
+.faq details[open] {
+  border-top-color: var(--red-dark);
+}
+.field input:not([type="radio"]),
+.field select,
+.field textarea {
+  transition:
+    background-color 0.3s,
+    border-color 0.3s;
+}
+.field input:not([type="radio"]):focus,
+.field select:focus,
+.field textarea:focus {
+  background: var(--surface-olive);
+}
+.contact-options > label {
+  transition:
+    background-color 0.3s,
+    border-color 0.3s;
+}
+.journal a[aria-current] .journal-tick {
+  transform: translateX(2px);
+}
+
+/* All utility, interaction, and error surfaces get a deliberate night palette. */
+html[data-theme="dark"] .soft-ink {
+  color: #a0aa92;
+}
+html[data-theme="dark"] .index-heading,
+html[data-theme="dark"] .schedule-head,
+html[data-theme="dark"] .membership-grid {
+  border-color: var(--rule);
+}
+html[data-theme="dark"] .training-row,
+html[data-theme="dark"] .membership-option + .membership-option,
+html[data-theme="dark"] .coaching-inclusion {
+  border-color: #4b5443;
+}
+html[data-theme="dark"] .training-row.selected {
+  border-color: var(--vermilion);
+}
+html[data-theme="dark"] .day-selector button:hover:not([aria-pressed="true"]) {
+  background: #323c2b;
+}
+html[data-theme="dark"] .demo-banner,
+html[data-theme="dark"] .contact-options > label.checked {
+  background: #293322;
+}
+html[data-theme="dark"] .type-filter select,
+html[data-theme="dark"] .field input:not([type="radio"]),
+html[data-theme="dark"] .field select,
+html[data-theme="dark"] .field textarea,
+html[data-theme="dark"] .contact-options > label {
+  border-color: #68735e;
+}
+html[data-theme="dark"] .field input[aria-invalid="true"],
+html[data-theme="dark"] .form-error-summary {
+  background: #38251e;
+  border-color: var(--red-dark);
+}
+html[data-theme="dark"] .form-error-summary a {
+  color: #ffb099;
+}
+html[data-theme="dark"] .completion-mark {
+  background: #293622;
+}
+html[data-theme="dark"] .booking-submit:disabled {
+  background: #6c775f;
+}
+html[data-theme="dark"] .field input::placeholder,
+html[data-theme="dark"] .field textarea::placeholder {
+  color: #a1ab96;
+}
+html[data-theme="dark"] .type-filter select option,
+html[data-theme="dark"] .field select option,
+html[data-theme="dark"] .field select optgroup {
+  background: #1d221b;
+}
+html[data-theme="dark"] .photo-note,
+html[data-theme="dark"] .hero-photo-caption {
+  color: #f1eee6;
+}
+html[data-theme="dark"] .practice-notation,
+html[data-theme="dark"] .closing-top {
+  border-color: #414b37;
+}
+html[data-theme="dark"] .membership-terms p {
+  color: #b4baaa;
+}
+
+@media (max-width: 1150px) {
+  .theme-label {
+    display: none;
+  }
+  .theme-toggle {
+    min-width: 42px;
+    width: 42px;
+    padding: 0;
+  }
+  .site-header {
+    gap: 17px;
+  }
+  .desktop-nav {
+    gap: 20px;
+  }
+}
+@media (max-width: 1000px) {
+  .site-header {
+    height: 80px;
+  }
+  .desktop-nav,
+  .header-book {
+    display: none;
+  }
+  .theme-toggle {
+    margin-left: auto;
+  }
+  .menu-toggle {
+    display: block;
+    margin-left: 0;
+    padding: 12px 0 12px 8px;
+    background: none;
+    border: 0;
+    min-height: 44px;
+    font-size: 10px;
+  }
+  .reading-progress {
+    top: 79px;
+  }
+  .mobile-menu {
+    position: fixed;
+    inset: 80px 0 0;
+    z-index: 41;
+    background: var(--chalk);
+    display: flex;
+    flex-direction: column;
+    padding: 35px var(--gutter) 100px;
+    overflow: auto;
+  }
+  .mobile-menu > a:not(.button) {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    font-family: var(--font-display), sans-serif;
+    text-transform: uppercase;
+    font-size: 42px;
+    border-bottom: 1px solid var(--rule);
+    padding: 16px 0;
+    line-height: 1;
+  }
+  .mobile-menu > a > .mono {
+    color: var(--red-dark);
+  }
+  .mobile-menu > .button {
+    margin-top: 30px;
+    align-self: flex-start;
+  }
+}
+@media (max-width: 760px) {
+  .site-header {
+    height: 73px;
+    gap: 12px;
+  }
+  .theme-toggle {
+    min-width: 42px;
+    width: 42px;
+    height: 44px;
+  }
+  .theme-symbol,
+  .theme-symbol svg {
+    width: 18px;
+    height: 18px;
+  }
+  .mobile-menu {
+    top: 73px;
+  }
+  .reading-progress {
+    top: 72px;
+  }
+  .menu-toggle {
+    font-size: 9px;
+  }
+  .hero-photo-caption {
+    font-size: 6px;
+  }
+  .button-copy {
+    line-height: 1.4;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .button:hover .button-copy > span:first-child,
+  .button:focus-visible .button-copy > span:first-child {
+    transform: none;
+  }
+  .button-copy-echo {
+    display: none !important;
+  }
+  .training-row:hover .training-row-title,
+  .journal a[aria-current] .journal-tick {
+    transform: none;
+  }
+}
+
+.motion-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 36px;
+  padding: 8px 0;
+  background: none;
+  color: var(--muted);
+  border: 0;
+  font-size: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.motion-toggle:hover {
+  color: var(--red-dark);
+}
+.motion-toggle:disabled {
+  cursor: default;
+}
+.motion-toggle-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--vermilion);
+}
+.motion-toggle[aria-checked="false"] .motion-toggle-dot {
+  background: var(--muted);
+}
+.footer-bottom > div {
+  flex-wrap: wrap;
+}
+html[data-motion-preference="reduce"] {
+  scroll-behavior: auto !important;
+}
+html[data-motion-preference="reduce"] *,
+html[data-motion-preference="reduce"] *::before,
+html[data-motion-preference="reduce"] *::after {
+  animation: none !important;
+  transition: none !important;
+}
+html[data-motion-preference="reduce"] .button-copy-echo {
+  display: none;
+}
+html[data-motion-preference="reduce"]
+  .button:hover
+  .button-copy
+  > span:first-child,
+html[data-motion-preference="reduce"]
+  .button:focus-visible
+  .button-copy
+  > span:first-child {
+  transform: none;
+}
+@media (max-width: 760px) {
+  .footer-bottom > div {
+    align-items: center;
+  }
+  .motion-toggle {
+    min-height: 44px;
+    font-size: 7px;
+  }
+}
+
+/* Reveal the new edition from the switch, preserving contrast on both sides. */
+html.theme-changing *,
+html.theme-changing *::before,
+html.theme-changing *::after {
+  transition: none !important;
+}
+::view-transition-old(root) {
+  animation: none;
+  z-index: 1;
+}
+::view-transition-new(root) {
+  z-index: 2;
+  animation: edition-reveal 0.7s cubic-bezier(0.22, 0.75, 0.2, 1) both;
+}
+@keyframes edition-reveal {
+  from {
+    clip-path: circle(0px at var(--theme-x, 90%) var(--theme-y, 45px));
+  }
+  to {
+    clip-path: circle(150vmax at var(--theme-x, 90%) var(--theme-y, 45px));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}

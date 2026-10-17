@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   days,
   sessions,
@@ -18,6 +18,9 @@ export function Timetable() {
   const shown = sessions.filter(
     (s) => s.day === day && (filter === "all" || s.training === filter),
   );
+  useEffect(() => {
+    window.dispatchEvent(new Event("form:schedule"));
+  }, [day, filter]);
   return (
     <div className="timetable">
       <div className="timetable-controls">

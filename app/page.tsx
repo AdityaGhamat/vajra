@@ -48,14 +48,16 @@ export default function Home() {
             </div>
           </div>
           <figure className="hero-photo">
-            <Image
-              src="/images/strength.webp"
-              alt="Concept photograph: a woman practises a kettlebell deadlift while a coach watches her technique."
-              fill
-              loading="eager"
-              fetchPriority="high"
-              sizes="(max-width: 760px) 100vw, 49vw"
-            />
+            <div className="photo-viewport">
+              <Image
+                src="/images/strength.webp"
+                alt="Concept photograph: a woman practises a kettlebell deadlift while a coach watches her technique."
+                fill
+                loading="eager"
+                fetchPriority="high"
+                sizes="(max-width: 760px) 100vw, 49vw"
+              />
+            </div>
             <div className="hero-photo-caption mono">
               <span>THE WORK IS PERSONAL.</span>
               <span>THE PRACTICE IS SHARED.</span>

@@ -51,6 +51,10 @@ node scripts/prepare-assets.mjs /absolute/path/to/generated_images/session
 
 Commission the same six subjects in the real facility: guided starting movement, a training-plan conversation, varied people doing scalable conditioning, wide unobstructed floor, hands/equipment detail, and changing facilities. Keep warm natural side light, concrete/olive/ink palette, documentary expressions, and consistent crops. Secure consent and releases. Photograph actual staff separately if making named portrait profiles.
 
+## Updated photographic presentation
+
+The moving edition uses a consistent monochrome print grade and a small procedural grain overlay in `app/experience.css`. It does not replace or destructively edit the colour WebP source files. `public/images/print-grain.svg` is an original 160×160 SVG noise tile made for this interface. Day/night filter values and the visual rationale are documented in MOTION-DIRECTION.md. Generated-image disclosures remain in place; the treatment is an art-direction choice, not a claim of photographic authenticity.
+
 ## Typography
 
 Two font families, three loaded weights; approximately 56 KB total before transfer compression.
@@ -68,3 +72,5 @@ The FORM wordmark is an original typographic treatment. The slash, arrows, rules
 - `public/icon.svg`: original F/slash favicon.
 - `public/social.png`: original 1200×630 social sharing fallback, generated from the SVG source embedded in `scripts/prepare-assets.mjs`.
 - No video, external embed, map image, icon library, stock testimonial, or copied review asset is used.
+
+The moving edition additionally uses GSAP 3.15.0 under its standard license and Lenis 1.3.27 under MIT. These are local code dependencies, not third-party visual assets. See MOTION-DIRECTION.md.

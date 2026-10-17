@@ -25,7 +25,8 @@ The build produces a static export in `out/`, including the homepage, `/book/`, 
 
 - Responsive editorial homepage, including first-session guidance, philosophy, coaches, membership comparison, captioned space essay, hours, and native FAQ disclosures.
 - Training index with pointer, touch, and keyboard activation; selected state, image transitions, live detail announcements, and dedicated programme pages.
-- A restrained, scroll-linked journal marker using a passive event listener and requestAnimationFrame; native scrolling and reduced-motion CSS.
+- A scroll-linked journal marker, GSAP headline/section/photo motion, and Lenis wheel smoothing with native touch and keyboard scrolling.
+- Day and night editions with a persistent theme switch, circular theme reveal where supported, and an additional motion-preference control. Device reduced motion takes priority.
 - Weekly timetable with day selection, training filters, session details, clear empty states, and prefilled enquiry links. Sunday is a rest day.
 - Demo enquiry with email/phone/WhatsApp preference, validation summary, linked field errors, loading, error/retry, completion focus, and cleared personal entries.
 - Mobile navigation with Escape and focus handling; a booking bar with safe-area padding.
@@ -39,6 +40,8 @@ The booking demo has **no network submission, personal-data storage, analytics, 
 
 To inspect the explicit demo error state, open `/book/?training=personal&preview=error`, enter valid sample details, and submit. The first valid attempt shows an identified demo error and preserves entries; retry completes. There is no fabricated network failure in the normal flow.
 
+Appearance controls save only `form-theme` and `form-motion` locally. They never store booking entries. Theme follows the device until a visitor chooses an edition.
+
 ## Customize
 
 | Location                      | Edit                                                                       |
@@ -51,10 +54,10 @@ To inspect the explicit demo error state, open `/book/?training=personal&preview
 | `public/images/`              | Final optimized concept photographs                                        |
 | `public/fonts/`               | Self-hosted fonts and their OFL licenses                                   |
 
-The homepage and programme pages are Server Components. Only navigation, the journal, training selection, timetable filters, and the enquiry form need client state. No animation or component library is required.
+The homepage and programme pages are Server Components. Navigation, the journal, training selection, timetable filters, enquiry form, and appearance preferences use small client components. The GSAP/Lenis motion system is imported separately after the initial render. The page remains usable with motion disabled or unavailable.
 
 ## Production handoff
 
-See [integration notes](docs/INTEGRATIONS.md), [asset and licensing manifest](docs/ASSETS.md), [creative references and portfolio outline](docs/CASE-STUDY.md), and [validation record](docs/VALIDATION.md).
+See [integration notes](docs/INTEGRATIONS.md), [asset and licensing manifest](docs/ASSETS.md), [creative references and portfolio outline](docs/CASE-STUDY.md), [OFFFORUM study and motion map](docs/MOTION-DIRECTION.md), and [validation record](docs/VALIDATION.md).
 
 The delivered static export is appropriate for this demo. A real booking adapter should run on a server or external booking service; remove `output: 'export'` if adding a Next.js Route Handler. Never put CRM credentials in the browser bundle.

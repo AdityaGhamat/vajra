@@ -43,3 +43,9 @@ See VALIDATION.md for measured viewport checks, browser interactions, build resu
 - Demonstrate training selection and timetable filtering.
 - Show one preserved-session enquiry, an accessible validation state, and the demo-complete message.
 - Close with verified technical decisions and an honest next step: real photography, real operations data, a production enquiry adapter, user testing, and field measurement.
+
+## The moving edition
+
+The next iteration studies the live OFFFORUM landing and About pages and brings stronger type reveals, contained photographic movement, state feedback, Lenis wheel smoothing, and day/night editions to the journal identity. A monochrome print grade gives the original concept images a consistent editorial treatment without claiming authenticity. The complete study and motion map are in [MOTION-DIRECTION.md](MOTION-DIRECTION.md).
+
+Motion is a progressive enhancement with route cleanup and device/visitor preference handling. The dark edition covers utility and form states as well as the landing page. The validation record includes 30 combinations across five routes, three widths, and two themes; it makes no conversion or Core Web Vitals claim.

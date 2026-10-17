@@ -3,7 +3,11 @@ import localFont from "next/font/local";
 import { Header } from "@/components/header";
 import { Wordmark } from "@/components/ui";
 import Link from "next/link";
+import { MotionSystem } from "@/components/motion-system";
+import { MotionToggle } from "@/components/motion-toggle";
 import "./globals.css";
+import "lenis/dist/lenis.css";
+import "./experience.css";
 
 const display = localFont({
   src: "../public/fonts/barlow-condensed-latin-700-normal.woff2",
@@ -59,9 +63,18 @@ export default function RootLayout({
     <html
       lang="en"
       data-scroll-behavior="smooth"
+      suppressHydrationWarning
       className={`${display.variable} ${sans.variable}`}
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var t=localStorage.getItem('form-theme');if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t;document.documentElement.dataset.motionPreference=localStorage.getItem('form-motion')==='reduce'?'reduce':'full'}catch(e){document.documentElement.dataset.theme='light'}`,
+          }}
+        />
+      </head>
       <body>
+        <MotionSystem />
         <a href="#main" className="skip-link">
           Skip to content
         </a>
@@ -87,6 +100,7 @@ export default function RootLayout({
             <div className="mono">
               <span>PUNE, INDIA</span>
               <span>PROGRESS IS A PRACTICE.</span>
+              <MotionToggle />
             </div>
           </div>
         </footer>
