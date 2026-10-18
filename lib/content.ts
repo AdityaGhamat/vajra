@@ -147,11 +147,42 @@ export const days = [
   "Sunday",
 ] as const;
 export type Day = (typeof days)[number];
+/** Exercise examples describe the sample session, not a separate booking type. */
+export const sessionFocuses = {
+  legs: {
+    label: "Legs & foundations",
+    exercises: ["Goblet squats", "Reverse lunges", "Calf raises"],
+    image: "/images/session-legs.webp",
+  },
+  upper: {
+    label: "Upper body & posture",
+    exercises: ["Dumbbell presses", "Supported rows", "Farmer carries"],
+    image: "/images/session-upper.webp",
+  },
+  full: {
+    label: "Full-body strength",
+    exercises: ["Kettlebell deadlifts", "Squats", "Rows"],
+    image: "/images/strength.webp",
+  },
+  circuit: {
+    label: "Conditioning & core",
+    exercises: ["Step-ups", "Loaded carries", "Dead bugs"],
+    image: "/images/conditioning.webp",
+  },
+  personal: {
+    label: "Your individual programme",
+    exercises: ["Split squats", "Presses & pulls", "Core stability"],
+    image: "/images/coach-meera.webp",
+  },
+} as const;
+export type SessionFocusId = keyof typeof sessionFocuses;
+
 export type Session = {
   id: string;
   day: Day;
   time: string;
   training: TrainingId;
+  focus: SessionFocusId;
   coach: string;
   level: string;
 };
@@ -161,6 +192,7 @@ export const sessions: Session[] = [
     day: "Monday",
     time: "07:00",
     training: "strength",
+    focus: "legs",
     coach: "Arjun",
     level: "All levels",
   },
@@ -169,6 +201,7 @@ export const sessions: Session[] = [
     day: "Monday",
     time: "12:30",
     training: "personal",
+    focus: "personal",
     coach: "Meera",
     level: "Individual",
   },
@@ -177,6 +210,7 @@ export const sessions: Session[] = [
     day: "Monday",
     time: "18:00",
     training: "conditioning",
+    focus: "circuit",
     coach: "Meera",
     level: "All levels",
   },
@@ -185,6 +219,7 @@ export const sessions: Session[] = [
     day: "Monday",
     time: "19:00",
     training: "strength",
+    focus: "upper",
     coach: "Arjun",
     level: "All levels",
   },
@@ -193,6 +228,7 @@ export const sessions: Session[] = [
     day: "Tuesday",
     time: "07:00",
     training: "conditioning",
+    focus: "circuit",
     coach: "Meera",
     level: "All levels",
   },
@@ -201,6 +237,7 @@ export const sessions: Session[] = [
     day: "Tuesday",
     time: "08:00",
     training: "strength",
+    focus: "full",
     coach: "Arjun",
     level: "Foundations",
   },
@@ -209,6 +246,7 @@ export const sessions: Session[] = [
     day: "Tuesday",
     time: "18:00",
     training: "strength",
+    focus: "legs",
     coach: "Meera",
     level: "All levels",
   },
@@ -217,6 +255,7 @@ export const sessions: Session[] = [
     day: "Wednesday",
     time: "07:00",
     training: "strength",
+    focus: "upper",
     coach: "Arjun",
     level: "All levels",
   },
@@ -225,6 +264,7 @@ export const sessions: Session[] = [
     day: "Wednesday",
     time: "12:30",
     training: "personal",
+    focus: "personal",
     coach: "Meera",
     level: "Individual",
   },
@@ -233,6 +273,7 @@ export const sessions: Session[] = [
     day: "Wednesday",
     time: "18:00",
     training: "conditioning",
+    focus: "circuit",
     coach: "Meera",
     level: "All levels",
   },
@@ -241,6 +282,7 @@ export const sessions: Session[] = [
     day: "Thursday",
     time: "08:00",
     training: "strength",
+    focus: "legs",
     coach: "Arjun",
     level: "Foundations",
   },
@@ -249,6 +291,7 @@ export const sessions: Session[] = [
     day: "Thursday",
     time: "18:00",
     training: "conditioning",
+    focus: "circuit",
     coach: "Meera",
     level: "All levels",
   },
@@ -257,6 +300,7 @@ export const sessions: Session[] = [
     day: "Thursday",
     time: "19:00",
     training: "personal",
+    focus: "personal",
     coach: "Arjun",
     level: "Individual",
   },
@@ -265,6 +309,7 @@ export const sessions: Session[] = [
     day: "Friday",
     time: "07:00",
     training: "strength",
+    focus: "full",
     coach: "Arjun",
     level: "All levels",
   },
@@ -273,6 +318,7 @@ export const sessions: Session[] = [
     day: "Friday",
     time: "18:00",
     training: "conditioning",
+    focus: "circuit",
     coach: "Meera",
     level: "All levels",
   },
@@ -281,6 +327,7 @@ export const sessions: Session[] = [
     day: "Saturday",
     time: "08:00",
     training: "strength",
+    focus: "legs",
     coach: "Arjun",
     level: "Foundations",
   },
@@ -289,6 +336,7 @@ export const sessions: Session[] = [
     day: "Saturday",
     time: "09:00",
     training: "conditioning",
+    focus: "circuit",
     coach: "Meera",
     level: "All levels",
   },
@@ -389,12 +437,30 @@ export const faqs = [
   {
     question: "Where is VAJRA FITNESS, and how do I contact you?",
     answer:
-      "VAJRA FITNESS is a fictional club set in the Baner neighbourhood of Pune. There is no operating address or phone number. Map, email, and WhatsApp integrations are intentionally inactive until a real gym’s verified details are supplied.",
+      "VAJRA FITNESS is a fictional club set in Baner, Pune. The sample street address and arrival details are invented for this portfolio. The map link opens the Baner neighbourhood only, not a real gym. No operating venue or phone number is provided.",
   },
 ];
 
 export const club = {
   location: "Baner, Pune",
+  // Invented portfolio address. Keep isConcept true until every arrival detail is verified.
+  arrival: {
+    isConcept: true,
+    address:
+      "Studio 02, VAJRA House, Practice Lane, Baner, Pune, Maharashtra" as
+        string | null,
+    mapUrl:
+      "https://www.google.com/maps/search/?api=1&query=Baner%2C%20Pune" as
+        string | null,
+    landmark:
+      "Sample landmark: the olive courtyard, beside the studio entrance." as
+        string | null,
+    entrance: "Sample access: second floor, via the courtyard staircase." as
+      string | null,
+    parking:
+      "Sample provision: cycle and two-wheeler spaces in the courtyard. Car parking to be confirmed." as
+        string | null,
+  },
   hours: [
     { days: "Monday – Friday", time: "06:00 – 21:00" },
     { days: "Saturday", time: "07:00 – 14:00" },

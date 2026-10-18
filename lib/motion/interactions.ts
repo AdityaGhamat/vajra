@@ -17,6 +17,7 @@ export function mountInteractions(context: gsap.Context) {
     cleanups.push(() => target.removeEventListener(name, callback));
   };
   const animate = (callback: () => void) => context.add(callback);
+  listen(window, "form:layout", refresh);
   listen(window, "form:training", () =>
     animate(() => {
       gsap.fromTo(

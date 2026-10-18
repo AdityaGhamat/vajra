@@ -1,3 +1,4 @@
+import { ClubLocation } from "@/components/club-location";
 import Image from "next/image";
 import strengthHero from "@/public/images/strength.webp";
 import { TransitionLink as Link } from "@/components/page-transitions";
@@ -402,13 +403,7 @@ export default function Home() {
                 </div>
               ))}
             </div>
-            <div className="contact-note">
-              <span className="mono">MAP & CONTACT</span>
-              <p>
-                Directions, email, and WhatsApp will be added when a real club’s
-                details are verified.
-              </p>
-            </div>
+            <ClubLocation />
           </div>
           <div className="faq">
             <span className="mono faq-heading">

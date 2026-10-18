@@ -1,18 +1,18 @@
 "use client";
-import { TransitionLink as Link } from "@/components/page-transitions";
-import { useEffect, useState } from "react";
+import { SessionRow } from "./session-row";
+import { useEffect, useRef, useState } from "react";
+import { SessionCursorPreview } from "./session-cursor-preview";
 import {
   days,
   sessions,
   trainings,
-  getTraining,
-  bookingUrl,
   type Day,
   type TrainingId,
 } from "@/lib/content";
 import { Arrow } from "./ui";
 
 export function Timetable() {
+  const root = useRef<HTMLDivElement>(null);
   const [day, setDay] = useState<Day>("Monday");
   const [filter, setFilter] = useState<TrainingId | "all">("all");
   const shown = sessions.filter(
@@ -22,7 +22,8 @@ export function Timetable() {
     window.dispatchEvent(new Event("form:schedule"));
   }, [day, filter]);
   return (
-    <div className="timetable">
+    <div className="timetable" ref={root}>
+      <SessionCursorPreview container={root} />
       <div className="timetable-controls">
         <div className="day-selector" role="group" aria-label="Choose day">
           {days.map((d) => (
@@ -55,6 +56,9 @@ export function Timetable() {
           </select>
         </div>
       </div>
+      <p className="schedule-invitation mono">
+        HOVER TO GLIMPSE THE PRACTICE · SELECT EXERCISE STUDY FOR MOVEMENTS
+      </p>
       <div className="schedule-head mono" aria-hidden="true">
         <span>TIME / IST</span>
         <span>SESSION</span>
@@ -65,34 +69,7 @@ export function Timetable() {
       <div className="schedule-list" aria-live="polite" aria-atomic="true">
         <h3 className="sr-only">{day} sessions</h3>
         {shown.length ? (
-          shown.map((s) => {
-            const t = getTraining(s.training)!;
-            return (
-              <article className="schedule-row" key={s.id}>
-                <div className="session-time">
-                  <time>{s.time}</time>
-                  <span className="mono">{t.duration} MIN</span>
-                </div>
-                <div className="session-title">
-                  <span className={`session-dot ${s.training}`} />
-                  <h4>{t.title}</h4>
-                </div>
-                <div className="session-coach">
-                  <span className="mobile-label mono">COACH </span>
-                  {s.coach}
-                </div>
-                <div className="session-level">{s.level}</div>
-                <Link
-                  className="session-book"
-                  href={bookingUrl(s.training, s.id)}
-                  aria-label={`Request ${t.title} on ${s.day} at ${s.time}`}
-                >
-                  Request session
-                  <Arrow />
-                </Link>
-              </article>
-            );
-          })
+          shown.map((s) => <SessionRow key={s.id} session={s} />)
         ) : (
           <div className="empty-schedule">
             <span className="mono">REST / RESET</span>

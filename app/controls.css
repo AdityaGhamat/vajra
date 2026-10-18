@@ -824,3 +824,267 @@ html[data-route-transition="revealing"] .cursor-dot {
     font-size: 68px;
   }
 }
+
+/* Session studies: reading details stay in the row; the cursor photo is portalled. */
+.schedule-invitation {
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 0.055em;
+  margin: 0 0 12px;
+  max-width: none;
+}
+.exercise-row {
+  min-height: 138px;
+}
+.exercise-row .session-title {
+  position: relative;
+  min-width: 0;
+  align-items: flex-start;
+}
+.exercise-row .session-dot {
+  margin-top: 8px;
+}
+.session-description {
+  min-width: 0;
+}
+.session-focus {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+  margin: 6px 0 0;
+}
+.session-preview-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--red-dark);
+  background: none;
+  border: 0;
+  padding: 8px 0;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  min-height: 36px;
+  cursor: pointer;
+  text-align: left;
+}
+.session-preview-toggle:focus-visible {
+  outline: 2px solid var(--red-dark);
+  outline-offset: 3px;
+}
+.session-preview-toggle > span {
+  font-size: 16px;
+}
+.session-exercises:not([hidden]) {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(160px, 280px) 1fr;
+  gap: 28px;
+  border-top: 1px solid var(--rule);
+  padding: 24px 0 4px;
+  animation: study-enter 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.session-mobile-image {
+  position: relative;
+  min-height: 160px;
+  overflow: hidden;
+  aspect-ratio: 1.6;
+}
+.session-mobile-image img {
+  object-fit: cover;
+  filter: var(--photo-filter);
+}
+.session-exercises .mono {
+  color: var(--red-dark);
+  font-size: 10px;
+}
+.session-exercises ul {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 14px 0;
+}
+.session-exercises li {
+  border: 1px solid var(--rule);
+  padding: 7px 12px;
+  font-size: 13px;
+}
+.session-exercises p {
+  color: var(--muted);
+  max-width: 470px;
+  font-size: 12px;
+  line-height: 1.65;
+}
+@keyframes study-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 900px), (hover: none), (pointer: coarse) {
+  .schedule-invitation {
+    font-size: 0;
+  }
+  .schedule-invitation::after {
+    content: "SELECT EXERCISE STUDY TO SEE MOVEMENTS & PHOTOS";
+    font-size: 10px;
+    line-height: 1.6;
+  }
+}
+@media (max-width: 760px) {
+  .exercise-row {
+    min-height: 0;
+    row-gap: 8px;
+  }
+  .exercise-row .session-title {
+    padding: 0;
+  }
+  .session-preview-toggle {
+    min-height: 44px;
+    padding: 6px 0;
+  }
+  .session-exercises:not([hidden]) {
+    grid-row: 4;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    margin-top: 10px;
+  }
+  .session-mobile-image {
+    min-height: 0;
+  }
+}
+/* Arrival information is useful before a visit, with live links only for verified locations. */
+.club-location {
+  border: 1px solid var(--rule);
+  margin-top: 32px;
+}
+.club-location-photo {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 2.5;
+}
+.club-location-photo img {
+  object-fit: cover;
+  filter: var(--photo-filter);
+}
+.club-location-photo > span {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background: #151813e8;
+  color: #f1eee6;
+  font-size: 9px;
+  padding: 7px 9px;
+}
+.club-arrival {
+  padding: 24px;
+}
+.club-arrival > .mono {
+  color: var(--red-dark);
+  font-size: 10px;
+}
+.club-arrival h3 {
+  font-size: 23px;
+  line-height: 1.2;
+  margin: 12px 0;
+}
+.club-arrival p,
+.club-arrival address {
+  font-size: 14px;
+  line-height: 1.65;
+  font-style: normal;
+}
+.club-arrival-note {
+  color: var(--muted);
+  margin-top: 12px;
+}
+.club-arrival dl > div {
+  border-top: 1px solid var(--rule);
+  padding: 12px 0;
+}
+.club-arrival dt {
+  font-size: 10px;
+  color: var(--muted);
+}
+.club-arrival dd {
+  margin: 5px 0 0;
+  font-size: 14px;
+}
+.club-arrival .club-location-status {
+  font-size: 9px;
+  line-height: 1.6;
+  color: var(--red-dark);
+  margin-bottom: 12px;
+}
+.club-arrival .text-link {
+  margin-top: 12px;
+}
+
+/* Pointer depth lives outside transformed entrance rows and never intercepts a click. */
+.session-cursor-preview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 120;
+  width: min(280px, 24vw);
+  aspect-ratio: 4 / 3;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.18s,
+    visibility 0.18s;
+  will-change: transform;
+}
+.session-cursor-preview[data-active] {
+  opacity: 1;
+  visibility: visible;
+}
+.session-cursor-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #151813;
+  box-shadow: 0 16px 45px #0005;
+  clip-path: inset(48% 0 48% 0);
+  transform: scale(0.88);
+  transition:
+    clip-path 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.session-cursor-preview[data-active] .session-cursor-card {
+  clip-path: inset(0);
+  transform: scale(1);
+}
+.session-cursor-card img {
+  object-fit: cover;
+  filter: var(--photo-filter);
+  animation: study-enter 0.4s both;
+}
+.session-cursor-card > span {
+  position: absolute;
+  inset: auto 0 0;
+  background: #151813ed;
+  color: #f1eee6;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  font-size: 10px;
+}
+@media (max-width: 900px),
+  (hover: none),
+  (pointer: coarse),
+  (prefers-reduced-motion: reduce) {
+  .session-cursor-preview {
+    display: none;
+  }
+}
+html[data-motion-preference="reduce"] .session-cursor-preview {
+  display: none;
+}

@@ -8,7 +8,13 @@ import {
   type FormEvent,
   type FocusEvent,
 } from "react";
-import { days, trainings, sessions, getTraining } from "@/lib/content";
+import {
+  days,
+  trainings,
+  sessions,
+  getTraining,
+  sessionFocuses,
+} from "@/lib/content";
 import {
   completeDemo,
   validateEnquiry,
@@ -375,7 +381,8 @@ export function BookingForm() {
                 )
                 .map((s) => (
                   <option value={s.id} key={s.id}>
-                    {s.day} · {s.time} · {getTraining(s.training)?.title}
+                    {s.day} · {s.time} · {getTraining(s.training)?.title} ·{" "}
+                    {sessionFocuses[s.focus].label}
                   </option>
                 ))}
             </optgroup>
