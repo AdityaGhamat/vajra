@@ -2,6 +2,24 @@ import { gsap } from "./runtime";
 
 /** Scroll-linked compositions, separate from entrances and form interactions. */
 export function mountScrollScenes() {
+  document
+    .querySelectorAll<SVGPathElement>("[data-plan-outline]")
+    .forEach((outline) => {
+      gsap.fromTo(
+        outline,
+        { strokeDashoffset: 1 },
+        {
+          strokeDashoffset: 0,
+          duration: 1.4,
+          ease: "power2.inOut",
+          scrollTrigger: {
+            trigger: outline.closest(".club-plan-board"),
+            start: "top 90%",
+            once: true,
+          },
+        },
+      );
+    });
   document.querySelectorAll<HTMLElement>(".section-label").forEach((label) => {
     gsap.fromTo(
       label,

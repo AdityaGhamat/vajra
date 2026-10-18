@@ -1,3 +1,4 @@
+import { ClubFloorPlan } from "@/components/club-floor-plan";
 import { ClubLocation } from "@/components/club-location";
 import Image from "next/image";
 import strengthHero from "@/public/images/strength.webp";
@@ -405,21 +406,24 @@ export default function Home() {
             </div>
             <ClubLocation />
           </div>
-          <div className="faq">
-            <span className="mono faq-heading">
-              A FEW THINGS YOU MIGHT BE WONDERING
-            </span>
-            {faqs.map((f) => (
-              <details key={f.question}>
-                <summary>
-                  {f.question}
-                  <span aria-hidden="true" className="faq-plus">
-                    +
-                  </span>
-                </summary>
-                <p>{f.answer}</p>
-              </details>
-            ))}
+          <div className="visit-discover">
+            <div className="faq">
+              <span className="mono faq-heading">
+                A FEW THINGS YOU MIGHT BE WONDERING
+              </span>
+              {faqs.map((f) => (
+                <details key={f.question}>
+                  <summary>
+                    {f.question}
+                    <span aria-hidden="true" className="faq-plus">
+                      +
+                    </span>
+                  </summary>
+                  <p>{f.answer}</p>
+                </details>
+              ))}
+            </div>
+            <ClubFloorPlan />
           </div>
         </div>
       </section>

@@ -12,6 +12,7 @@ import "./globals.css";
 import "lenis/dist/lenis.css";
 import "./experience.css";
 import "./controls.css";
+import "./floor-plan.css";
 
 const display = localFont({
   src: "../public/fonts/barlow-condensed-latin-700-normal.woff2",
