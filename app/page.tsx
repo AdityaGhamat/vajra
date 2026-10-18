@@ -1,4 +1,5 @@
 import Image from "next/image";
+import strengthHero from "@/public/images/strength.webp";
 import { TransitionLink as Link } from "@/components/page-transitions";
 import { Arrow, BookLink, SectionLabel, Closing } from "@/components/ui";
 import { TrainingIndex } from "@/components/training-index";
@@ -49,7 +50,7 @@ export default function Home() {
               cue="Your first session"
             >
               <Image
-                src="/images/strength.webp"
+                src={strengthHero}
                 alt="Concept photograph: a woman practises a kettlebell deadlift while a coach watches her technique."
                 fill
                 loading="eager"
