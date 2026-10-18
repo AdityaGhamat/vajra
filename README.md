@@ -19,7 +19,11 @@ npm run build
 npm start
 ```
 
-The build produces a static export in `out/`, including the homepage, `/book/`, all three `/training/[slug]/` pages, and a custom 404. `npm start` serves it at http://127.0.0.1:3000 using the small bundled Node server. You can also serve `out/` with any static host that supports directory indexes and a 404 fallback. `next start` is not used with this static-export configuration.
+The build produces the production Next.js application in `.next/`, including the homepage, `/book/`, all three `/training/[slug]/` pages, and a custom 404. `npm start` runs the Next.js server at http://127.0.0.1:3000. Production hosting must support a Next.js server; serving an old `out/` directory will not include these changes or the image optimizer.
+
+All source photographs live in `public/images/` and use local `/images/...` paths with `next/image`. Next.js generates responsive `srcset` candidates from each image's `sizes`, optimizes the requested width through the same-origin `/_next/image` endpoint, and caches the result. Below-the-fold images lazy-load; the main hero image loads eagerly. No ChatGPT image host or external image service is required. A deployed copy naturally serves these local assets under that deployment's own domain.
+
+When deploying, set `SITE_URL` to your own site's origin before building (for example, `https://your-domain.example`). This sets canonical social-image URLs; local development defaults to `http://localhost:3000`. Social artwork is also local, in `public/social.png`.
 
 ## What works
 
@@ -60,6 +64,6 @@ The homepage and programme pages are Server Components. Navigation, the journal,
 
 See [integration notes](docs/INTEGRATIONS.md), [asset and licensing manifest](docs/ASSETS.md), [creative references and portfolio outline](docs/CASE-STUDY.md), [OFFFORUM study and motion map](docs/MOTION-DIRECTION.md), and [validation record](docs/VALIDATION.md).
 
-The delivered static export is appropriate for this demo. A real booking adapter should run on a server or external booking service; remove `output: 'export'` if adding a Next.js Route Handler. Never put CRM credentials in the browser bundle.
+The application uses the Next.js server for local image optimization. A real booking adapter can use a server Route Handler or an external booking service. Never put CRM credentials in the browser bundle.
 
 Motion is separated into route transitions, scroll ownership, reveals, scroll scenes, and UI interactions under `lib/motion/`. Booking uses native scroll; landing/programme pages use Lenis for wheel input. See `docs/MOTION-DIRECTION.md` for lifecycle and accessibility details. Stop the dev server before changing dependencies, then restart it; do not leave a running Turbopack process watching a dependency reinstall.

@@ -26,7 +26,7 @@ const sans = localFont({
   display: "swap",
 });
 export const metadata: Metadata = {
-  metadataBase: new URL("https://vajra-fitness-pune.lightmap1025.chatgpt.site"),
+  metadataBase: new URL(process.env.SITE_URL || "http://localhost:3000"),
   title: {
     default: "VAJRA FITNESS — Progress is a practice.",
     template: "%s / VAJRA FITNESS",
