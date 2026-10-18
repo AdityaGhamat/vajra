@@ -846,21 +846,141 @@ html[data-motion="ready"] .hero-chalk-wipe::after {
 }
 .weigh-in-count {
   font-family: var(--font-display), sans-serif;
-  font-size: clamp(90px, 20vw, 260px);
+  font-size: clamp(64px, 12vw, 96px);
   line-height: 0.9;
   letter-spacing: -0.05em;
 }
-.weigh-in-bar {
-  height: 2px;
-  background: #3a4034;
-  margin-top: 18px;
-  overflow: hidden;
+/* A two-rep brand intro, not a simulated download percentage. */
+.weigh-in > div {
+  width: min(320px, calc(100vw - 48px));
 }
-.weigh-in-bar > span {
+.weigh-in > div > .mono:first-child {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+.weigh-in-lifter {
   display: block;
-  height: 100%;
-  background: var(--vermilion);
-  transform-origin: left;
+  width: 240px;
+  max-width: 100%;
+  margin: 14px auto 12px;
+  overflow: visible;
+}
+.lifter-ground {
+  fill: none;
+  stroke: #505747;
+  stroke-width: 1;
+}
+.lifter-skin {
+  fill: #d7d2c3;
+}
+.lifter-neck {
+  fill: #aaa996;
+}
+.lifter-hair,
+.lifter-beard {
+  fill: #30372c;
+}
+.lifter-shirt {
+  fill: #363e30;
+  stroke: #778169;
+  stroke-width: 0.75;
+}
+.lifter-fabric {
+  fill: none;
+  stroke: #65705a;
+  stroke-width: 1;
+  opacity: 0.75;
+}
+.lifter-detail {
+  fill: none;
+  stroke: #777a68;
+  stroke-width: 1.1;
+  stroke-linecap: round;
+}
+.lifter-back-arm {
+  fill: #b6b6a4;
+}
+.lifter-trousers {
+  fill: #454b3d;
+  stroke: #929985;
+  stroke-width: 0.7;
+}
+.lifter-back-leg {
+  fill: #30382d;
+}
+.lifter-seam {
+  fill: none;
+  stroke: #727b64;
+  stroke-width: 1;
+}
+.lifter-shoes {
+  fill: #b7bbab;
+}
+.lifter-shoe-detail {
+  fill: none;
+  stroke: #3c4434;
+  stroke-width: 1.4;
+}
+.lifter-dumbbell {
+  fill: #22271f;
+  stroke: #c5c9b8;
+  stroke-width: 1;
+}
+.lifter-weight-bar {
+  stroke: #d6d9cc;
+  stroke-width: 5;
+}
+.lifter-weight-edge {
+  fill: none;
+  stroke: #e77559;
+  stroke-width: 2;
+}
+.lifter-grip {
+  fill: #d7d2c3;
+  stroke: #888e79;
+  stroke-width: 0.7;
+}
+.lifter-forearm {
+  transform-origin: 158px 124px;
+  animation: opening-curl 700ms ease-in-out 2;
+}
+.lifter-motion-mark {
+  fill: none;
+  stroke: #e77559;
+  stroke-width: 2;
+  animation: opening-effort 700ms ease-in-out 2;
+}
+.weigh-in-reps {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+.weigh-in-reps > .mono {
+  font-size: 11px;
+  color: #abb49e;
+}
+.weigh-in .weigh-in-skip {
+  min-height: 44px;
+}
+@keyframes opening-curl {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  45%,
+  55% {
+    transform: rotate(-120deg);
+  }
+}
+@keyframes opening-effort {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  40%,
+  60% {
+    opacity: 1;
+  }
 }
 /* ============ Living journal rail stamps ============ */
 .journal-tick {
