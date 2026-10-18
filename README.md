@@ -1,17 +1,40 @@
-# VAJRA FITNESS
+# VAJRA FITNESS — Progress is a practice.
 
-A complete Next.js App Router + TypeScript portfolio concept for a fictional neighbourhood gym in Baner, Pune. The visual idea is an independent sports magazine crossed with a training journal: warm chalk, ink, condensed type, documentary concept photography, numbered entries, and vermilion progress marks.
+A portfolio example of a complete gym website: a fictional neighbourhood strength club in Baner, Pune, designed and built to show what a production-quality fitness site feels like end to end — brand, editorial design, motion, timetable, programme pages, and a booking enquiry flow. Nothing here is a real business; everything is illustrative, and the site says so wherever it matters.
+
+The concept is an independent sports magazine crossed with a training journal: warm chalk and ink, condensed display type, documentary-style concept photography, numbered log entries, and a single vermilion signal colour. Scrolling the site is framed as writing your training log — every section stamps another entry.
+
+## What this example demonstrates
+
+- **Full site, not a landing page.** Editorial homepage (hero, first-session guide, philosophy, coaches, memberships, space essay with interactive floor plan, visit info, FAQ), three dedicated programme pages (`/training/[slug]/`), a booking enquiry page (`/book/`), and a custom 404.
+- **A booking flow without a backend.** The enquiry form has contact-preference selection (email / phone / WhatsApp), validation with a linked error summary, loading / error-retry / completion states, and prefilled links from training programmes and timetable sessions. Submissions stay in React memory and are cleared on completion — there is deliberately no network call, storage, analytics, or CRM.
+- **Motion with manners.** GSAP line reveals, scroll-linked scenes, a three-panel route curtain, Lenis wheel smoothing, a magnetic CTA treatment, and an animated lifter preloader — all gated behind `prefers-reduced-motion` and an in-site motion toggle, with a fully usable static page underneath.
+- **Day and night editions.** A persistent theme switch with a circular reveal, following the device until the visitor chooses.
+- **Accessibility as a feature.** Semantic landmarks, skip link, focus management on route change and dialogs, live-region announcements, keyboard-operable gallery / timetable / training index, and 44px+ touch targets.
+- **Honest fiction.** Every person and place in the photography is AI-generated concept imagery, coach personas and prices are labelled illustrative, and the location block explicitly refuses to fake a map pin or phone number.
+
+## Tech stack
+
+| Layer     | Choice                                                              |
+| --------- | ------------------------------------------------------------------- |
+| Framework | Next.js 16 (App Router) + TypeScript + React 19                     |
+| Motion    | GSAP (SplitText, ScrollTrigger) + Lenis, loaded after first render  |
+| Styling   | Hand-written CSS (tokens, editorial grid, chapters, reduced motion) |
+| Type      | Barlow Condensed + DM Sans, self-hosted via `next/font` (OFL)       |
+| Imagery   | Local WebP concept photos, served through `next/image`              |
+
+No CMS, no database, no environment variables, no external image or font services.
 
 ## Run locally
 
-Requires Node.js 20.9 or newer. Developed with Node 22 and Next.js 16.4.2.
+Requires Node.js 20.9 or newer (developed with Node 22).
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Open http://127.0.0.1:3000. No environment variables or service credentials are needed.
+Open http://127.0.0.1:3000.
 
 ```sh
 npm run typecheck
@@ -19,51 +42,60 @@ npm run build
 npm start
 ```
 
-The build produces the production Next.js application in `.next/`, including the homepage, `/book/`, all three `/training/[slug]/` pages, and a custom 404. `npm start` runs the Next.js server at http://127.0.0.1:3000. Production hosting must support a Next.js server; serving an old `out/` directory will not include these changes or the image optimizer.
+To inspect the demo error state, open `/book/?training=personal&preview=error`, enter valid sample details, and submit: the first attempt shows an identified demo error and preserves your entries; retrying completes. The normal flow never fabricates a failure.
 
-All source photographs live in `public/images/` and use local `/images/...` paths with `next/image`. Next.js generates responsive `srcset` candidates from each image's `sizes`, optimizes the requested width through the same-origin `/_next/image` endpoint, and caches the result. Below-the-fold images lazy-load; the main hero image loads eagerly. No ChatGPT image host or external image service is required. A deployed copy naturally serves these local assets under that deployment's own domain.
+## Project structure
 
-When deploying, set `SITE_URL` to your own site's origin before building (for example, `https://your-domain.example`). This sets canonical social-image URLs; local development defaults to `http://localhost:3000`. Social artwork is also local, in `public/social.png`.
+```text
+app/
+  page.tsx               Homepage — the training log, section by section
+  layout.tsx             Fonts, header/footer, motion + transition providers
+  training/[slug]/       One page per programme (strength, conditioning, personal)
+  book/                  Enquiry page: story column + demo form
+  globals.css            Tokens, type scale, editorial grid
+  experience.css         Chapters, motion, preloader, gallery, theme editions
+  controls.css           Forms, timetable, booking states
+  floor-plan.css         Interactive club floor plan
+components/
+  preloader.tsx          Animated lifter intro (two reps, then racks away)
+  training-index.tsx     Programme selector with full-bleed takeover previews
+  timetable.tsx          Day filter + session rows with enquiry links
+  space-gallery.tsx      Photo essay with keyboard-navigable viewer dialog
+  club-floor-plan.tsx    Interactive zone map of the concept club
+  club-location.tsx      Concept address block (never a fake venue pin)
+  booking-form.tsx       Demo enquiry with accessible validation states
+  journal.tsx            Scroll-linked "practice" rail with stamped entries
+  page-transitions.tsx   Route curtain + focus management
+lib/
+  content.ts             Programmes, sessions, coaches, memberships, FAQs, hours
+  booking.ts             Validation rules and the demo adapter seam
+  motion/                Scroll engine, reveals, scenes, interactions, routes
+public/
+  images/                WebP concept photography + print grain texture
+  fonts/                 Self-hosted woff2 + OFL license texts
+```
 
-## What works
+The homepage and programme pages are Server Components; navigation, the journal, training selection, timetable, enquiry form, and appearance preferences are small client components. Motion is an enhancement layer — the page is complete before it loads.
 
-- Responsive editorial homepage, including first-session guidance, philosophy, coaches, membership comparison, captioned space essay, hours, and native FAQ disclosures.
-- Training index with pointer, touch, and keyboard activation; selected state, image transitions, live detail announcements, and dedicated programme pages.
-- A scroll-linked journal marker, GSAP headline/section/photo motion, and Lenis wheel smoothing with native touch and keyboard scrolling.
-- Day and night editions with a persistent theme switch, circular theme reveal where supported, and an additional motion-preference control. Device reduced motion takes priority.
-- Weekly timetable with day selection, training filters, session details, clear empty states, and prefilled enquiry links. Sunday is a rest day.
-- Demo enquiry with email/phone/WhatsApp preference, validation summary, linked field errors, loading, error/retry, completion focus, and cleared personal entries.
-- Mobile navigation with Escape and focus handling; a booking bar with safe-area padding.
-- Local WebP images, self-hosted OFL fonts through next/font, next/image, semantic HTML, page metadata, favicon, and social sharing artwork.
+## Make it yours
+
+| To change                                          | Edit                                                               |
+| -------------------------------------------------- | ------------------------------------------------------------------ |
+| Programmes, sessions, coaches, prices, FAQs, hours | `lib/content.ts`                                                   |
+| Enquiry fields, validation, demo behaviour         | `lib/booking.ts`, `components/booking-form.tsx`                    |
+| Design tokens, layout, theme editions              | `app/globals.css`, `app/experience.css`, `app/controls.css`        |
+| Fonts, metadata, site origin                       | `app/layout.tsx` (`SITE_URL` env at build time for canonical URLs) |
+| Photography                                        | `public/images/` (local paths only; `next/image` handles the rest) |
+
+Swap the demo adapter in `lib/booking.ts` for a server Route Handler or booking service to go live — and never put CRM credentials in the browser bundle.
 
 ## Demo boundaries
 
-VAJRA FITNESS is fictional. Programme structures, named coach personas, prices, policies, hours, and sessions are illustrative. No awards, reviews, capacity claims, qualifications, or results are fabricated. Every person and facility in the photographs is AI-generated. No map, phone, email, or WhatsApp link represents an operating business.
+- VAJRA FITNESS is fictional. Programmes, coaches, prices, policies, hours, and sessions are illustrative; no awards, reviews, qualifications, or results are claimed.
+- All imagery is AI-generated concept work, labelled as such on the site.
+- The booking demo sends nothing anywhere. Entries live in memory, contact details never enter the URL, and closing or reloading discards everything.
+- Appearance controls persist only `form-theme` and `form-motion` in `localStorage`.
 
-The booking demo has **no network submission, personal-data storage, analytics, or CRM**. It accepts sample entries only in React memory and clears them on completion. A selected training/session ID can be carried in the URL; contact details never enter the URL. Closing or reloading the page discards entries. A real enquiry would still require the club to confirm a time.
+## Deploying
 
-To inspect the explicit demo error state, open `/book/?training=personal&preview=error`, enter valid sample details, and submit. The first valid attempt shows an identified demo error and preserves entries; retry completes. There is no fabricated network failure in the normal flow.
-
-Appearance controls save only `form-theme` and `form-motion` locally. They never store booking entries. Theme follows the device until a visitor chooses an edition.
-
-## Customize
-
-| Location                      | Edit                                                                       |
-| ----------------------------- | -------------------------------------------------------------------------- |
-| `lib/content.ts`              | Programmes, typed sessions, coaches, sample membership prices, FAQs, hours |
-| `lib/booking.ts`              | Validation, enquiry domain type, demo adapter seam                         |
-| `components/booking-form.tsx` | Enquiry fields and accessible states                                       |
-| `app/globals.css`             | Design tokens, grid, responsive styles, reduced motion                     |
-| `app/layout.tsx`              | Fonts, shared navigation/footer, metadata and site origin                  |
-| `public/images/`              | Final optimized concept photographs                                        |
-| `public/fonts/`               | Self-hosted fonts and their OFL licenses                                   |
-
-The homepage and programme pages are Server Components. Navigation, the journal, training selection, timetable filters, enquiry form, and appearance preferences use small client components. The GSAP/Lenis motion system is imported separately after the initial render. The page remains usable with motion disabled or unavailable.
-
-## Production handoff
-
-See [integration notes](docs/INTEGRATIONS.md), [asset and licensing manifest](docs/ASSETS.md), [creative references and portfolio outline](docs/CASE-STUDY.md), [OFFFORUM study and motion map](docs/MOTION-DIRECTION.md), and [validation record](docs/VALIDATION.md).
-
-The application uses the Next.js server for local image optimization. A real booking adapter can use a server Route Handler or an external booking service. Never put CRM credentials in the browser bundle.
-
-Motion is separated into route transitions, scroll ownership, reveals, scroll scenes, and UI interactions under `lib/motion/`. Booking uses native scroll; landing/programme pages use Lenis for wheel input. See `docs/MOTION-DIRECTION.md` for lifecycle and accessibility details. Stop the dev server before changing dependencies, then restart it; do not leave a running Turbopack process watching a dependency reinstall.
+Any host that runs a Next.js server works (`npm run build` → `npm start`). Static-only hosting is not suitable — the site relies on the Next.js server for image optimization. Set `SITE_URL` to the site's origin before building so social metadata uses canonical URLs (local development defaults to `http://localhost:3000`).
