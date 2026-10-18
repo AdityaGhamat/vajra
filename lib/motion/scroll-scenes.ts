@@ -1,7 +1,7 @@
 import { gsap } from "./runtime";
 
 /** Scroll-linked compositions, separate from entrances and form interactions. */
-export function mountScrollScenes(desktop: boolean) {
+export function mountScrollScenes() {
   document.querySelectorAll<HTMLElement>(".section-label").forEach((label) => {
     gsap.fromTo(
       label,
@@ -18,28 +18,6 @@ export function mountScrollScenes(desktop: boolean) {
       },
     );
   });
-  if (desktop && document.querySelector(".hero-copy")) {
-    gsap.to(".hero-copy", {
-      y: -65,
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".hero",
-        start: "top top",
-        end: "bottom top",
-        scrub: 0.7,
-      },
-    });
-    gsap.to(".hero-photo", {
-      clipPath: "inset(0% 3% 7% 3%)",
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".hero",
-        start: "top top",
-        end: "bottom top",
-        scrub: 0.7,
-      },
-    });
-  }
   document
     .querySelectorAll<HTMLElement>(".philosophy-copy > p")
     .forEach((text) => {
@@ -92,6 +70,27 @@ export function mountScrollScenes(desktop: boolean) {
         },
       );
     });
+
+  // The journal rail stamps each entry as its section locks in.
+  document.querySelectorAll<HTMLElement>(".journal a").forEach((link) => {
+    const hash = link.getAttribute("href") ?? "";
+    const target = hash.startsWith("#")
+      ? document.getElementById(hash.slice(1))
+      : null;
+    if (!target) return;
+    gsap.to(link, {
+      ease: "none",
+      scrollTrigger: {
+        trigger: target,
+        start: "top 55%",
+        end: "bottom 45%",
+        onEnter: () => link.classList.add("stamped"),
+        onEnterBack: () => link.classList.add("stamped"),
+      },
+    });
+  });
+
+  // The space essay uses native horizontal scrolling: no pin spacer or extra page length.
 
   // Interstitial words: one keyframed pass each way, no competing tweens.
   document.querySelectorAll<HTMLElement>(".interstitial").forEach((el) => {

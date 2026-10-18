@@ -737,3 +737,387 @@ html.theme-changing *::after {
     animation: none;
   }
 }
+
+/* ============ THE LIVING LOG — Iron & Chalk chapters ============ */
+.chapter-iron {
+  --chapter-bg: #101210;
+  --chapter-ink: #f1eee6;
+  --chapter-muted: #b9bfae;
+  background: var(--chapter-bg);
+  color: var(--chapter-ink);
+}
+.chapter-iron .muted,
+.chapter-iron .section-intro {
+  color: var(--chapter-muted);
+}
+.chapter-iron .section-label {
+  color: var(--chapter-muted);
+}
+/* Site-wide chalk-dust grain. Texture, not decoration. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  background: url("/images/print-grain.svg") repeat;
+  background-size: 180px 180px;
+  opacity: 0.1;
+  mix-blend-mode: overlay;
+}
+/* Viewport-filling display type with its ghost duplicate. */
+.display-mega {
+  font-size: clamp(64px, 15.5vw, 250px);
+  line-height: 0.86;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+.display-wrap {
+  position: relative;
+}
+.display-ghost {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in srgb, currentColor 38%, transparent);
+  transform: translate(0.035em, 0.045em);
+  pointer-events: none;
+  user-select: none;
+}
+.display-solid {
+  position: relative;
+  z-index: 1;
+}
+.hero-log-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 26px;
+  align-items: baseline;
+}
+.hero-stamp {
+  display: inline-block;
+  border: 1px solid var(--vermilion);
+  color: var(--vermilion);
+  padding: 6px 12px;
+  transform: rotate(-3deg);
+  letter-spacing: 0.14em;
+}
+.hero-chalk-wipe {
+  position: relative;
+}
+.hero-chalk-wipe::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: var(--chapter-bg, var(--chalk));
+  transform: scaleY(0);
+  transform-origin: top;
+  pointer-events: none;
+}
+html[data-motion="ready"] .hero-chalk-wipe::after {
+  animation: chalk-wipe 1.1s cubic-bezier(0.22, 0.75, 0.2, 1) 0.15s both;
+}
+@keyframes chalk-wipe {
+  from {
+    transform: scaleY(1);
+  }
+  to {
+    transform: scaleY(0);
+  }
+}
+/* ============ Weigh-in preloader ============ */
+.weigh-in {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: grid;
+  place-items: center;
+  background: #101210;
+  color: #f1eee6;
+  transition:
+    opacity 0.4s ease,
+    visibility 0.4s;
+}
+.weigh-in.done {
+  opacity: 0;
+  visibility: hidden;
+}
+.weigh-in-count {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(90px, 20vw, 260px);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+}
+.weigh-in-bar {
+  height: 2px;
+  background: #3a4034;
+  margin-top: 18px;
+  overflow: hidden;
+}
+.weigh-in-bar > span {
+  display: block;
+  height: 100%;
+  background: var(--vermilion);
+  transform-origin: left;
+}
+/* ============ Living journal rail stamps ============ */
+.journal-tick {
+  position: relative;
+}
+.journal a.stamped .journal-tick {
+  background: var(--vermilion);
+  animation: stamp-hit 0.45s cubic-bezier(0.2, 1.4, 0.3, 1);
+}
+@keyframes stamp-hit {
+  0% {
+    transform: scale(0.4) rotate(-14deg);
+  }
+  60% {
+    transform: scale(1.25) rotate(3deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+/* Section entry stamps. */
+.stamp-in {
+  display: inline-block;
+  border: 1px solid currentColor;
+  padding: 4px 10px;
+  transform: rotate(-2.5deg);
+  opacity: 0.9;
+}
+/* ============ Training takeover ============ */
+.training-takeover {
+  position: relative;
+}
+.training-takeover-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+.training-takeover-layer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.6) contrast(1.1) brightness(0.55);
+  transform: scale(1.06);
+  transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.training-takeover-layer .takeover-word {
+  position: absolute;
+  inset: auto 0 8% 0;
+  text-align: center;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(70px, 13vw, 220px);
+  line-height: 0.85;
+  letter-spacing: -0.045em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(241, 238, 230, 0.85);
+}
+.training-index.takeover-live .training-takeover-layer {
+  opacity: 1;
+}
+.training-index.takeover-live .training-takeover-layer img {
+  transform: scale(1);
+}
+@media (hover: none), (max-width: 760px) {
+  .training-takeover-layer {
+    display: none;
+  }
+}
+/* Timetable session stamp. */
+.schedule-row.picked {
+  animation: stamp-hit 0.4s cubic-bezier(0.2, 1.4, 0.3, 1);
+  box-shadow: inset 0 2px 0 var(--vermilion);
+}
+/* ============ Space journal: native browsing without pin spacers ============ */
+.gallery-navigation {
+  display: none;
+}
+.space-essay > .gallery-note {
+  margin-top: 28px;
+}
+@media (min-width: 901px) {
+  .gallery-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: -12px 0 22px;
+  }
+  .gallery-navigation p {
+    color: var(--muted);
+  }
+  .gallery-navigation p span {
+    margin-left: 24px;
+    color: var(--red-dark);
+  }
+  .gallery-navigation > div {
+    display: flex;
+    gap: 8px;
+  }
+  .gallery-navigation button:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+  .space-essay .space-gallery {
+    display: flex;
+    gap: 28px;
+    width: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--rule) transparent;
+    padding: 0 0 16px;
+    position: relative;
+  }
+  .space-essay .space-gallery > figure {
+    flex: 0 0 62%;
+    margin: 0;
+    min-width: 0;
+    scroll-snap-align: start;
+  }
+  .space-essay .gallery-frame {
+    max-height: 420px;
+    aspect-ratio: 1.6;
+  }
+  .space-essay .space-gallery figcaption {
+    min-height: 50px;
+  }
+}
+/* ============ Cursor + magnetic ============ */
+.cursor-dot {
+  position: fixed;
+  z-index: 250;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--vermilion);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition:
+    width 0.25s ease,
+    height 0.25s ease,
+    background-color 0.25s ease;
+  mix-blend-mode: normal;
+}
+.cursor-dot[data-label] {
+  width: 84px;
+  height: 84px;
+  background: #f1eee6;
+  color: #101210;
+}
+.cursor-dot[data-label]::after {
+  content: attr(data-label);
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: Consolas, monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+}
+@media (hover: none), (pointer: coarse) {
+  .cursor-dot {
+    display: none;
+  }
+}
+.magnetic {
+  will-change: transform;
+}
+/* Page-turn evolution of the route curtain. */
+html[data-route-transition="covering"] .route-curtain-panel,
+html[data-route-transition="covered"] .route-curtain-panel {
+  transform-origin: top;
+}
+.route-curtain-word > span:first-child {
+  letter-spacing: -0.055em;
+  text-shadow: 0 2px 0 rgba(25, 27, 24, 0.35);
+}
+/* Asymmetric coach spreads + rate-card membership. */
+.coach-grid {
+  counter-reset: coach;
+}
+.coach-profile {
+  position: relative;
+}
+.coach-profile::before {
+  counter-increment: coach;
+  content: "0" counter(coach);
+  position: absolute;
+  top: -0.9em;
+  right: 0;
+  z-index: 3;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(90px, 10vw, 170px);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--rule);
+  pointer-events: none;
+}
+@media (min-width: 901px) {
+  .coach-grid .coach-profile:nth-child(even) {
+    transform: translateY(48px);
+  }
+  .membership-grid {
+    align-items: stretch;
+  }
+  .membership-option {
+    position: relative;
+  }
+
+  .membership-option .price {
+    font-family: var(--font-display), sans-serif;
+    font-size: clamp(54px, 5vw, 88px);
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+}
+/* Programme + booking chapters share the log language. */
+.detail-hero .detail-line {
+  border-left: 2px solid var(--vermilion);
+  padding-left: 14px;
+}
+.session-outline li {
+  position: relative;
+}
+.session-outline li::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 2px;
+  width: 56px;
+  background: var(--vermilion);
+}
+/* Kill new motion for reduced-motion visitors. */
+@media (prefers-reduced-motion: reduce) {
+  html[data-motion="ready"] .hero-chalk-wipe::after {
+    animation: none;
+  }
+  .journal a.stamped .journal-tick,
+  .schedule-row.picked {
+    animation: none;
+  }
+  .cursor-dot {
+    display: none;
+  }
+}
+html[data-motion-preference="reduce"] .hero-chalk-wipe::after,
+html[data-motion-preference="reduce"] .journal a.stamped .journal-tick,
+html[data-motion-preference="reduce"] .schedule-row.picked,
+html[data-motion-preference="reduce"] .cursor-dot {
+  animation: none !important;
+}
+html[data-motion-preference="reduce"] .cursor-dot {
+  display: none;
+}

@@ -28,7 +28,13 @@ export function TrainingIndex() {
       previewTimer.current = setTimeout(() => setSelected(i), 180);
   };
   return (
-    <div className="training-index">
+    <div className="training-index training-takeover">
+      <div className="training-takeover-layer" aria-hidden="true">
+        <Image src={training.image} alt="" fill sizes="100vw" />
+        <span className="takeover-word">
+          {training.shortTitle.toUpperCase()}
+        </span>
+      </div>
       <div className="training-rows">
         <div className="index-heading mono">
           <span>THE TRAINING INDEX</span>

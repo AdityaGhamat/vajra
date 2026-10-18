@@ -4,6 +4,8 @@ import { Header } from "@/components/header";
 import { Wordmark } from "@/components/ui";
 import { TransitionLink as Link } from "@/components/page-transitions";
 import { MotionSystem } from "@/components/motion-system";
+import { Preloader } from "@/components/preloader";
+import { Cursor } from "@/components/cursor";
 import { MotionToggle } from "@/components/motion-toggle";
 import { PageTransitions } from "@/components/page-transitions";
 import "./globals.css";
@@ -76,6 +78,8 @@ export default function RootLayout({
       <body>
         <PageTransitions>
           <MotionSystem />
+          <Preloader />
+          <Cursor />
           <a href="#main" className="skip-link">
             Skip to content
           </a>

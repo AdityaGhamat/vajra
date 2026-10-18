@@ -8,8 +8,26 @@ export function mountReveals(desktop: boolean) {
     const isHero = !!heading.closest(
       ".hero, .detail-hero, .booking-story, .not-found",
     );
-    const spokenLabel = heading.innerText.replace(/\s+/g, " ").trim();
-    SplitText.create(heading, {
+    // Reading chapters enter as complete headings; only the opening owns a line mask.
+    if (!isHero) {
+      gsap.fromTo(
+        heading,
+        { y: 18, opacity: 0.7 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.65,
+          ease: "power3.out",
+          scrollTrigger: { trigger: heading, start: "top 95%", once: true },
+          clearProps: "transform,opacity",
+        },
+      );
+      return;
+    }
+    const textTarget =
+      heading.querySelector<HTMLElement>(".display-solid") ?? heading;
+    const spokenLabel = textTarget.innerText.replace(/\s+/g, " ").trim();
+    SplitText.create(textTarget, {
       type: "lines",
       mask: "lines",
       linesClass: "motion-line",
@@ -171,27 +189,12 @@ export function mountReveals(desktop: boolean) {
     );
   });
 
-  // Images move inside their reserved frames. No section pins or extra scroll distance.
+  // Frame entrances are separate from the image depth owned by parallax.ts.
   select(
     ".photo-viewport, .philosophy-image, .coach-photo, .gallery-frame, .detail-photo, .booking-photo",
   ).forEach((frame: HTMLElement) => {
     const image = frame.querySelector("img");
     if (!image) return;
-    gsap.fromTo(
-      image,
-      { scale: 1.08, yPercent: desktop ? -3 : -2 },
-      {
-        scale: 1.08,
-        yPercent: desktop ? 3 : 2,
-        ease: "none",
-        scrollTrigger: {
-          trigger: frame,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: desktop ? 0.8 : 0.4,
-        },
-      },
-    );
     if (!frame.closest(".hero, .detail-hero")) {
       gsap.fromTo(
         frame,
@@ -206,24 +209,4 @@ export function mountReveals(desktop: boolean) {
       );
     }
   });
-  if (desktop) {
-    select(".space-gallery figure").forEach(
-      (figure: HTMLElement, i: number) => {
-        gsap.fromTo(
-          figure,
-          { y: i % 2 ? 65 : 20 },
-          {
-            y: i % 2 ? -65 : -20,
-            ease: "none",
-            scrollTrigger: {
-              trigger: figure,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: 1.1,
-            },
-          },
-        );
-      },
-    );
-  }
 }

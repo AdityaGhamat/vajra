@@ -62,10 +62,10 @@ export function Wordmark() {
 }
 export function Closing() {
   return (
-    <section className="closing section-pad">
+    <section className="closing section-pad chapter-iron">
       <div className="closing-top mono">
         <span>YOUR NEXT ENTRY</span>
-        <span>01 / BEGIN</span>
+        <span className="stamp-in">LOG SIGNED — 01 / BEGIN</span>
       </div>
       <h2>
         START WHERE

@@ -2,6 +2,7 @@ import { gsap, ScrollTrigger } from "./motion/runtime";
 import { mountScroll } from "./motion/scroll";
 import { mountReveals } from "./motion/reveals";
 import { mountScrollScenes } from "./motion/scroll-scenes";
+import { mountParallax } from "./motion/parallax";
 import { mountInteractions } from "./motion/interactions";
 
 /** A route owns its scroll engine, scenes, listeners, and animation context. */
@@ -16,7 +17,8 @@ export function mountMotion() {
         let stopInteractions: (() => void) | undefined;
         try {
           mountReveals(desktop);
-          mountScrollScenes(desktop);
+          mountScrollScenes();
+          mountParallax(desktop);
           stopInteractions = mountInteractions(context);
           ScrollTrigger.refresh();
         } catch (error) {

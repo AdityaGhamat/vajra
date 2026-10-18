@@ -14,25 +14,36 @@ export default function Home() {
   return (
     <main id="main">
       <Journal />
-      <section className="hero section-pad" aria-labelledby="hero-title">
-        <div className="hero-meta mono">
+      <section
+        className="hero section-pad chapter-iron"
+        aria-labelledby="hero-title"
+      >
+        <div className="hero-meta mono hero-log-meta">
           <span>
             <span className="location-mark">↗</span> YOUR NEIGHBOURHOOD. YOUR
             NEXT CHAPTER.
           </span>
           <span>BANER, PUNE / INDIA</span>
+          <span className="hero-stamp">ENTRY 001 — SHOW UP</span>
         </div>
         <div className="hero-grid">
           <div className="hero-copy">
-            <h1 id="hero-title">
-              PROGRESS IS
-              <br />A PRACTICE<span className="red">.</span>
+            <h1 id="hero-title" className="display-mega display-wrap">
+              <span className="display-ghost" aria-hidden="true">
+                PROGRESS IS
+                <br />A PRACTICE.
+              </span>
+              <span className="display-solid">
+                PROGRESS IS
+                <br />A PRACTICE<span className="red">.</span>
+              </span>
             </h1>
             <div className="hero-description">
               <span className="red mono hero-plus">+</span>
               <p>
                 Strength training, thoughtful coaching,
                 <br className="desktop-break" /> and a place to keep showing up.
+                Show up. Log it. Repeat.
               </p>
             </div>
             <div className="hero-actions">
@@ -42,7 +53,7 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <figure className="hero-photo">
+          <figure className="hero-photo hero-chalk-wipe">
             <ImageAction
               className="photo-viewport"
               href="#begin"
@@ -77,7 +88,9 @@ export default function Home() {
       <Interstitial word="SHOW UP" subtitle="YOUR FIRST STEP" />
 
       <section id="begin" className="first-session section-pad section-space">
-        <SectionLabel number="01">A PLACE TO START</SectionLabel>
+        <SectionLabel number="01">
+          A PLACE TO START / <span className="stamp-in">ENTRY 002</span>
+        </SectionLabel>
         <div className="first-grid">
           <div>
             <h2>
@@ -343,7 +356,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="space" className="space section-pad section-space">
+      <section
+        id="space"
+        className="space section-pad section-space space-essay chapter-iron"
+      >
         <SectionLabel number="05">ROOM TO FIND YOUR RHYTHM</SectionLabel>
         <div className="section-heading">
           <h2>

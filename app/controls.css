@@ -562,3 +562,265 @@ html[data-motion-preference="reduce"] .training-row:hover .training-row-title {
     display: none;
   }
 }
+
+/* Living Log refinement: a consistent chapter rhythm, without empty scroll scenes. */
+.section-space {
+  padding-block: clamp(64px, 7vw, 104px);
+}
+.section-label {
+  margin-bottom: 26px;
+}
+.section-heading {
+  margin-bottom: 36px;
+}
+.interstitial {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  text-align: left;
+  padding-top: 26px;
+  padding-bottom: 8px;
+}
+.interstitial-word {
+  font-size: clamp(48px, 6vw, 86px);
+  flex-shrink: 0;
+}
+.interstitial-sub {
+  margin-top: 0;
+  max-width: 150px;
+}
+.first-session {
+  padding-top: 44px;
+}
+.coaches {
+  padding-top: 52px;
+}
+.hero.chapter-iron {
+  max-width: none;
+}
+.chapter-iron {
+  --vermilion: #e77559;
+  --red-dark: #f18c72;
+  --muted: #b9bfae;
+  --rule: #424a3b;
+}
+.chapter-iron .text-link {
+  border-color: #a4ad92;
+}
+.chapter-iron .button:hover {
+  background: #f1eee6;
+  color: #191b18;
+}
+.hero-proof {
+  border-top-color: var(--rule);
+}
+.hero .hero-grid {
+  padding-block: 30px 32px;
+  min-height: 520px;
+}
+.hero .hero-copy {
+  padding-top: 14px;
+}
+.hero .hero-photo {
+  min-height: 450px;
+}
+.hero h1 {
+  font-size: clamp(70px, 9.3vw, 150px);
+}
+.display-ghost {
+  -webkit-text-stroke: 1px #68705e;
+  opacity: 0.35;
+}
+.hero-description {
+  max-width: 430px;
+}
+.hero-stamp {
+  flex-shrink: 0;
+}
+.training-rows {
+  position: relative;
+  z-index: 1;
+}
+.training-detail {
+  z-index: 1;
+}
+.training-index .training-row {
+  padding-inline: 14px;
+  background: var(--chalk);
+}
+.training-index .training-row:is(:hover, :focus-visible) {
+  background: var(--surface-alt);
+}
+.training-index .training-row.selected {
+  background: var(--surface-olive);
+}
+.training-index .training-row:hover .training-row-title {
+  transform: none;
+}
+.training-takeover-layer .takeover-word {
+  display: none;
+}
+.training-takeover-layer img {
+  filter: var(--photo-filter);
+}
+@media (hover: hover) and (pointer: fine) and (min-width: 901px) {
+  .training-index:is(:hover, :focus-within) .training-takeover-layer {
+    opacity: 0.055;
+  }
+}
+.coach-grid .coach-profile::before {
+  top: 12px;
+  right: 14px;
+  z-index: 4;
+  font-size: clamp(68px, 7vw, 110px);
+  -webkit-text-stroke-color: #f1eee6;
+  opacity: 0.6;
+}
+.coach-grid .coach-profile:nth-child(even) {
+  transform: none;
+}
+.coach-info {
+  gap: 20px;
+}
+.membership-featured {
+  padding-top: 28px;
+  padding-bottom: 32px;
+}
+.membership-option .price {
+  font-size: clamp(54px, 4.5vw, 76px);
+}
+.gallery-navigation .viewer-control {
+  min-width: 46px;
+}
+.space-gallery:focus-visible {
+  outline: 2px solid var(--red-dark);
+  outline-offset: 6px;
+}
+.weigh-in-note {
+  margin-top: 12px;
+  color: #b9bfae;
+}
+.weigh-in-skip {
+  min-height: 44px;
+  padding: 8px 16px;
+  margin-top: 28px;
+  background: transparent;
+  border: 1px solid #68705e;
+  color: #f1eee6;
+}
+.weigh-in-skip:focus-visible {
+  outline-color: #f1eee6;
+}
+.cursor-dot[data-label] {
+  width: 64px;
+  height: 64px;
+}
+html[data-route-transition="covering"] .cursor-dot,
+html[data-route-transition="covered"] .cursor-dot,
+html[data-route-transition="revealing"] .cursor-dot {
+  visibility: hidden;
+}
+@media (max-width: 1000px) {
+  .hero-log-meta {
+    gap: 10px 18px;
+  }
+  .hero-stamp {
+    margin-left: auto;
+  }
+}
+@media (max-width: 900px) {
+  .cursor-dot {
+    display: none;
+  }
+  .hero .hero-photo {
+    min-height: 360px;
+  }
+  .hero h1 {
+    font-size: clamp(60px, 9.4vw, 90px);
+  }
+}
+@media (max-width: 760px) {
+  .section-space {
+    padding-block: 56px;
+  }
+  .section-label {
+    margin-bottom: 24px;
+    gap: 12px;
+  }
+  .section-heading {
+    margin-bottom: 30px;
+  }
+  .section-label .stamp-in {
+    display: inline-block;
+    margin-top: 6px;
+  }
+  .interstitial {
+    padding-top: 20px;
+    gap: 16px;
+  }
+  .interstitial-word {
+    font-size: 14vw;
+  }
+  .interstitial-sub {
+    max-width: 110px;
+  }
+  .first-session {
+    padding-top: 36px;
+  }
+  .coaches {
+    padding-top: 40px;
+  }
+  .hero .hero-grid {
+    padding-top: 24px;
+    min-height: 0;
+    gap: 26px;
+  }
+  .hero h1 {
+    font-size: clamp(56px, 18vw, 98px);
+    white-space: normal;
+  }
+  .hero .hero-copy {
+    padding-top: 0;
+  }
+  .hero .hero-photo {
+    min-height: 0;
+    aspect-ratio: 1.12;
+  }
+  .hero-stamp {
+    margin-left: 0;
+  }
+  .hero-log-meta {
+    gap: 9px 16px;
+  }
+  .hero-log-meta > span:first-child {
+    flex-basis: 100%;
+  }
+  .hero .hero-log-meta > span {
+    max-width: none;
+    text-align: left;
+  }
+  .hero-log-meta .hero-stamp {
+    white-space: nowrap;
+    padding: 5px 8px;
+    letter-spacing: 0.04em;
+  }
+  .hero .hero-description {
+    margin-top: 22px;
+  }
+  .hero-actions {
+    flex-wrap: wrap;
+  }
+  .training-index .training-row {
+    padding-inline: 10px;
+  }
+  .training-takeover-layer {
+    display: none;
+  }
+  .space-essay > .gallery-note {
+    margin-top: 24px;
+  }
+  .coach-grid .coach-profile::before {
+    font-size: 68px;
+  }
+}

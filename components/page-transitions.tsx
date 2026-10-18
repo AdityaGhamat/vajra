@@ -103,6 +103,20 @@ export function PageTransitions({ children }: { children: ReactNode }) {
   const navigate = useCallback(
     (href: string, replace = false) => {
       const target = new URL(href, location.href);
+      // A home link must return to the top even when Next reuses the same page
+      // and the optional Lenis listener is absent in quiet mode.
+      if (
+        target.origin === location.origin &&
+        normalized(target.pathname) === "/" &&
+        normalized(location.pathname) === "/" &&
+        !target.hash
+      ) {
+        if (replace)
+          router.replace(target.pathname + target.search, { scroll: false });
+        else router.push(target.pathname + target.search, { scroll: false });
+        window.scrollTo({ top: 0, behavior: "instant" });
+        return true;
+      }
       if (
         target.origin === location.origin &&
         normalized(target.pathname) === normalized(location.pathname) &&

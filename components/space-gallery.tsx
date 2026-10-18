@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ImageAction } from "./image-action";
 import { TransitionLink } from "./page-transitions";
 
@@ -49,6 +49,43 @@ const spaces = [
 ];
 
 export function SpaceGallery() {
+  const track = useRef<HTMLDivElement>(null);
+  const [page, setPage] = useState(0);
+  const syncPage = useCallback(() => {
+    const rail = track.current;
+    const items = rail?.querySelectorAll<HTMLElement>("figure");
+    if (!rail || !items?.length) return;
+    const max = rail.scrollWidth - rail.clientWidth;
+    const step = items[1].offsetLeft - items[0].offsetLeft;
+    setPage(
+      max < 2 || step <= 0
+        ? 0
+        : rail.scrollLeft >= max - 4
+          ? spaces.length - 1
+          : Math.min(spaces.length - 1, Math.round(rail.scrollLeft / step)),
+    );
+  }, []);
+  useEffect(() => {
+    const observer = new ResizeObserver(syncPage);
+    if (track.current) observer.observe(track.current);
+    return () => observer.disconnect();
+  }, [syncPage]);
+  const browse = (direction: number) => {
+    const rail = track.current;
+    if (!rail) return;
+    const next = Math.max(0, Math.min(spaces.length - 1, page + direction));
+    const item = rail.querySelectorAll<HTMLElement>("figure")[next];
+    if (!item) return;
+    const quiet =
+      matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      document.documentElement.dataset.motionPreference === "reduce";
+    rail.scrollTo({
+      left:
+        item.offsetLeft -
+        (rail.querySelector<HTMLElement>("figure")?.offsetLeft ?? 0),
+      behavior: quiet ? "instant" : "smooth",
+    });
+  };
   const [active, setActive] = useState<number | null>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   const opener = useRef<HTMLElement | null>(null);
@@ -80,7 +117,39 @@ export function SpaceGallery() {
 
   return (
     <>
-      <div className="space-gallery">
+      <div className="gallery-navigation">
+        <p className="mono">
+          THE SPACE JOURNAL <span>0{page + 1} / 04</span>
+        </p>
+        <div>
+          <button
+            type="button"
+            className="viewer-control"
+            aria-label="Previous gallery photograph"
+            disabled={page === 0}
+            onClick={() => browse(-1)}
+          >
+            ←
+          </button>
+          <button
+            type="button"
+            className="viewer-control"
+            aria-label="Next gallery photograph"
+            disabled={page === spaces.length - 1}
+            onClick={() => browse(1)}
+          >
+            →
+          </button>
+        </div>
+      </div>
+      <div
+        ref={track}
+        className="space-gallery"
+        role="region"
+        aria-label="The space photo journal"
+        tabIndex={0}
+        onScroll={syncPage}
+      >
         {spaces.map((s, i) => (
           <figure className={`space-${s.key}`} key={s.key}>
             <ImageAction
@@ -107,18 +176,18 @@ export function SpaceGallery() {
             </figcaption>
           </figure>
         ))}
-        <div className="gallery-note">
-          <span className="mono red">THE SPACE, IN PRINCIPLE.</span>
-          <p>
-            Light. Order. A sense of belonging.
-            <br />A club should make it easier to begin.
-          </p>
-          <span className="mono muted">
-            GENERATED CONCEPT IMAGERY
-            <br />
-            NOT AN OPERATING FACILITY
-          </span>
-        </div>
+      </div>
+      <div className="gallery-note">
+        <span className="mono red">THE SPACE, IN PRINCIPLE.</span>
+        <p>
+          Light. Order. A sense of belonging.
+          <br />A club should make it easier to begin.
+        </p>
+        <span className="mono muted">
+          GENERATED CONCEPT IMAGERY
+          <br />
+          NOT AN OPERATING FACILITY
+        </span>
       </div>
       {space && (
         <dialog

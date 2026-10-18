@@ -49,9 +49,15 @@ export function BookingForm() {
     const input = event.target;
     const field = input.closest<HTMLElement>(".field");
     if (!field) return;
+    const scrollAtFocus = window.scrollY;
     cancelAnimationFrame(focusFrame.current);
     focusFrame.current = requestAnimationFrame(() => {
-      if (document.activeElement !== input || !field.isConnected) return;
+      if (
+        document.activeElement !== input ||
+        !field.isConnected ||
+        window.scrollY !== scrollAtFocus
+      )
+        return;
       const bounds = field.getBoundingClientRect();
       const header =
         document.querySelector(".site-header")?.getBoundingClientRect()
